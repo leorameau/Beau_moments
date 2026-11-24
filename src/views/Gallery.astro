@@ -1,12 +1,7 @@
 ---
-// Galerie : les photos Instagram de BEAU MOMENTS en chapitres, avec trois mises en page qui alternent :
-//  - « carousel » : défilement horizontal (glisser, flèches, barre de progression), photos à la même hauteur
-//  - « mosaic »   : une grande photo + quatre petites (cadres recadrés ; la visionneuse montre la photo entière)
-//  - « row »      : une rangée pleine largeur, photos à la même hauteur, sans recadrage
-// Chaque chapitre tient dans un écran. Clic sur une photo = visionneuse plein écran.
+// Galerie : toutes les photos Instagram en rangées justifiées, sans recadrage ; filtre par chapitre, clic = visionneuse.
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
-import Logo from '../components/Logo.astro';
 import { getImage } from 'astro:assets';
 import { getPhoto, type PhotoKey } from '../lib/photos';
 import { site, abs } from '../lib/site';
@@ -19,33 +14,23 @@ const s = t(lang);
 const ig = site.social.instagram;
 const L = Lx(lang);
 
-// frame = format commun à toutes les photos du chapitre (largeur / hauteur) ; cols = colonnes pour une grille
-type Layout = 'carousel' | 'grid';
-const chapters: { id: string; title: string; lead: string; layout: Layout; frame: [number, number]; cols?: number; photos: PhotoKey[]; more?: boolean }[] = [
-  { id: 'gerechten', layout: 'carousel', frame: [4, 5], title: L('Op het bord', 'Dans l’assiette', 'On the plate'),
-    lead: L('Klassiek Frans, met een moderne toets: kreeft, langoustine, hamachi, oesters en desserts.', 'Classique français, touche moderne : homard, langoustine, hamachi, huîtres et desserts.', 'Classic French with a modern touch: lobster, langoustine, hamachi, oysters and desserts.'),
+const chapters: { id: string; title: string; photos: PhotoKey[] }[] = [
+  { id: 'gerechten', title: L('Op het bord', 'Dans l’assiette', 'On the plate'),
     photos: ['lobster-caviar', 'caviar-dish', 'egg-shrimp-tray', 'langoustine', 'hamachi', 'scallop-dish', 'lobster-sauce', 'oysters', 'european-lobster', 'langoustine-ceviche', 'side-dish', 'strawberry-dessert', 'dame-blanche', 'hazelnut-tart'] },
-  { id: 'atelier', layout: 'grid', frame: [3, 4], cols: 4, title: L('Het atelier', 'L’atelier', 'The atelier'),
-    lead: L('Industrielaan 3/C1 in Maldegem: private dining voor 8 tot 18 personen.', 'Industrielaan 3/C1 à Maldegem : dîners privés pour 8 à 18 personnes.', 'Industrielaan 3/C1 in Maldegem: private dining for 8 to 18 guests.'),
+  { id: 'atelier', title: L('Het atelier', 'L’atelier', 'The atelier'),
     photos: ['atelier-facade', 'atelier-dinner-from-above', 'atelier-dining-room', 'atelier-candles'] },
-  { id: 'tafels', layout: 'carousel', frame: [1, 1], title: L('Gedekte tafels', 'Tables dressées', 'Laid tables'),
-    lead: L('Een prachtig gedekte tafel maakt het plaatje compleet: thuis, in de tuin of in een oude schuur.', 'Une belle table dressée complète le tableau : à la maison, au jardin ou dans une vieille grange.', 'A beautifully laid table completes the picture: at home, in the garden or in an old barn.'),
+  { id: 'tafels', title: L('Gedekte tafels', 'Tables dressées', 'Laid tables'),
     photos: ['table-room', 'table-lemons', 'valentine-table', 'table-long', 'garden-table', 'table-flowers', 'valentine-barn', 'table-candles', 'flowers'] },
-  { id: 'receptie', layout: 'grid', frame: [1, 1], cols: 5, title: L('Hapjes & receptie', 'Bouchées & réception', 'Canapés & receptions'),
-    lead: L('Koud geserveerd, warm ontvangen: zo beginnen feesten.', 'Servi froid, accueilli chaleureusement : ainsi commencent les fêtes.', 'Served cold, welcomed warmly: that is how parties begin.'),
+  { id: 'receptie', title: L('Hapjes & receptie', 'Bouchées & réception', 'Canapés & receptions'),
     photos: ['appetizers', 'flower-bites', 'egg-shrimp-garden', 'tartelettes', 'waiter-tray'] },
-  { id: 'producten', layout: 'grid', frame: [3, 2], cols: 3, title: L('Producten', 'Les produits', 'The produce'),
-    lead: L('Coquilles Saint-Jacques, gemarmerd rundvlees, olijfolie: alleen het beste.', 'Saint-Jacques, bœuf persillé, huile d’olive : seulement le meilleur.', 'Scallops, marbled beef, olive oil: only the best.'),
+  { id: 'producten', title: L('Producten', 'Les produits', 'The produce'),
     photos: ['scallops', 'beef-cuts', 'olive-oil-tasting'] },
-  { id: 'achter-de-schermen', layout: 'carousel', frame: [3, 4], title: L('Achter de schermen', 'En coulisses', 'Behind the scenes'),
-    lead: L('Achter het gordijn worden de mooiste momenten voorbereid.', 'Derrière le rideau se préparent les plus beaux moments.', 'Behind the curtain, the finest moments are prepared.'),
+  { id: 'achter-de-schermen', title: L('Achter de schermen', 'En coulisses', 'Behind the scenes'),
     photos: ['plating-sauce', 'chef-plating', 'kitchen-beef', 'bert-serving', 'apron-details', 'ready-to-serve', 'bites-tray', 'champagne-bar', 'behind-the-curtain', 'amuse-spoons'] },
-  { id: 'bubbels', layout: 'grid', frame: [4, 5], cols: 4, title: L('Bubbels & aperitief', 'Bulles & apéritif', 'Bubbles & aperitif'),
-    lead: L('Ook alcoholvrij: AWA Shiso, met Japanse signatuur.', 'Aussi sans alcool : AWA Shiso, d’inspiration japonaise.', 'Alcohol-free too: AWA Shiso, with a Japanese signature.'),
+  { id: 'bubbels', title: L('Bubbels & aperitief', 'Bulles & apéritif', 'Bubbles & aperitif'),
     photos: ['awa-shiso-ice', 'awa-shiso-bottle', 'apero', 'croquettes'] },
-  { id: 'momenten', layout: 'grid', frame: [4, 5], cols: 4, title: L('Momenten', 'Moments', 'Moments'),
-    lead: L('Bert, Aude en hun gasten.', 'Bert, Aude et leurs invités.', 'Bert, Aude and their guests.'),
-    photos: ['bert-and-aude', 'aude-with-guests', 'serving-bubbles'], more: true },
+  { id: 'momenten', title: L('Momenten', 'Moments', 'Moments'),
+    photos: ['bert-and-aude', 'aude-with-guests', 'serving-bubbles'] },
 ];
 
 // Version grand format pour la visionneuse (jusqu'à la pleine résolution de l'original)
@@ -55,7 +40,6 @@ const full = Object.fromEntries(await Promise.all(all.map(async (k) => {
   const img = await getImage({ src, width: Math.min(1300, src.width), format: 'webp', quality: 80 });
   return [k, img.src];
 })));
-const ratio = (k: PhotoKey) => (getPhoto(k).src.width / getPhoto(k).src.height).toFixed(4);
 
 const ld = [{
   '@type': 'ImageGallery',
@@ -65,177 +49,28 @@ const ld = [{
   author: { '@id': `${site.siteUrl}/#business` },
   image: all.map((k) => ({ '@type': 'ImageObject', contentUrl: abs(full[k]), caption: getPhoto(k).alt[lang] })),
 }];
-const ui = {
-  close: L('Sluiten', 'Fermer', 'Close'), prev: L('Vorige foto', 'Photo précédente', 'Previous photo'), next: L('Volgende foto', 'Photo suivante', 'Next photo'),
-  prevSet: L('Vorige', 'Précédent', 'Previous'), nextSet: L('Volgende', 'Suivant', 'Next'), swipe: L('Swipe of sleep voor meer', 'Glissez pour en voir plus', 'Swipe or drag for more'),
-};
 ---
 <Base lang={lang} title={s.meta.galleryTitle} description={s.meta.galleryDesc} alternates={allLangs((l) => pagePath('gallery', l))}
-  section="gallery" breadcrumbs={[{ name: s.nav.gallery, path: pagePath('gallery', lang) }]} extraLd={ld} ogPhoto="table-candles">
-  <section class="page-head">
-    <div class="wrap g12">
-      <div class="page-head-title">
-        <p class="label">{s.gallery.label} · Instagram</p>
-        <h1>{s.gallery.title}</h1>
-      </div>
-      <div class="page-head-lead"><p class="lead">{s.gallery.lead}</p></div>
+  section="gallery" breadcrumbs={[{ name: s.nav.gallery, path: pagePath('gallery', lang) }]} extraLd={ld} ogPhoto="table-candles" enquiry={{ look: 'c', photo: 'table-long' }}>
+  <section class="phead"><div class="wrap">
+    <h1>{s.gallery.title}</h1>
+    <p class="lead">{s.gallery.lead}</p>
+    <div class="chips" data-chips hidden>
+      <button type="button" aria-pressed="true" data-f="">{L('Alles', 'Tout', 'All')}</button>
+      {chapters.map((c) => <button type="button" aria-pressed="false" data-f={c.id}>{c.title}</button>)}
     </div>
-    <nav class="wrap g-chapters" aria-label={s.nav.gallery}>
-      {chapters.map((c, i) => <a href={`#${c.id}`}><span>{String(i + 1).padStart(2, '0')}</span>{c.title}</a>)}
-    </nav>
-  </section>
-
-  {chapters.map((c, ci) => (
-    <section class:list={['section-sm', 'g-chapter', { 'bg-2': ci % 2 === 0 }]} id={c.id}>
-      <div class="wrap">
-        <div class="section-head g-head">
-          <div><p class="label" data-reveal><span class="n">{String(ci + 1).padStart(2, '0')}</span> {s.nav.gallery}</p><h2>{c.title}</h2></div>
-          <p class="lead" data-reveal>{c.lead}</p>
-        </div>
-
-        {c.layout === 'carousel' && (
-          <div class="g-carousel" data-gcarousel data-reveal style={`--frame:${c.frame[0]} / ${c.frame[1]};--fr:${(c.frame[0] / c.frame[1]).toFixed(4)}`}>
-            <div class="g-track" tabindex="0" aria-label={c.title}>
-              {c.photos.map((k) => (
-                <a class="g-item g-frame" href={full[k]} data-lightbox data-caption={getPhoto(k).alt[lang]} data-post={getPhoto(k).post}>
-                  <Photo name={k} lang={lang} sizes="(min-width: 860px) 34vw, 70vw" />
-                </a>
-              ))}
-            </div>
-            <div class="rv-foot">
-              <div class="rv-progress" aria-hidden="true"><span></span></div>
-              <span class="g-hint">{ui.swipe}</span>
-              <div class="rv-nav">
-                <button class="rv-btn" type="button" data-prev aria-label={ui.prevSet}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                </button>
-                <button class="rv-btn" type="button" data-next aria-label={ui.nextSet}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {c.layout === 'grid' && (
-          <div class="g-fgrid" data-reveal style={`--frame:${c.frame[0]} / ${c.frame[1]};--fr:${(c.frame[0] / c.frame[1]).toFixed(4)}` + `;--cols:${c.cols}`}>
-            {c.photos.map((k) => (
-              <a class="g-item g-frame" href={full[k]} data-lightbox data-caption={getPhoto(k).alt[lang]} data-post={getPhoto(k).post}>
-                <Photo name={k} lang={lang} sizes={`(min-width: 860px) ${Math.ceil(100 / (c.cols ?? 3))}vw, 50vw`} />
-              </a>
-            ))}
-            {c.more && (
-              <a class="g-more g-frame" href={ig.url} target="_blank" rel="noopener">
-                <Logo />
-                <span>{s.gallery.more}</span>
-                <span class="link">@{ig.handle}</span>
-              </a>
-            )}
-          </div>
-        )}
-      </div>
-    </section>
-  ))}
-
-  <section class="section-sm">
-    <div class="wrap"><p class="section-foot" data-reveal style="margin-top:0"><a class="btn" href={ig.url} target="_blank" rel="noopener">{s.common.followInstagram}</a></p></div>
-  </section>
-
-  <dialog class="lb" aria-label={s.nav.gallery} data-lb>
-    <button class="lb-close" type="button" data-lb-close aria-label={ui.close}>×</button>
-    <button class="lb-nav lb-prev" type="button" data-lb-prev aria-label={ui.prev}>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-    </button>
-    <figure class="lb-fig">
-      <img alt="" data-lb-img />
-      <figcaption><span data-lb-cap></span><a class="link" data-lb-post target="_blank" rel="noopener">{s.gallery.open}</a></figcaption>
-    </figure>
-    <button class="lb-nav lb-next" type="button" data-lb-next aria-label={ui.next}>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-    </button>
-  </dialog>
+  </div></section>
+  <section class="wrap"><h2 class="sr">{s.nav.gallery}</h2><div class="wall">
+    {chapters.flatMap((c) => c.photos.map((k) => <div class="brick" data-ch={c.id} style={`--k:${(getPhoto(k).src.width / getPhoto(k).src.height).toFixed(4)}`}><Photo zoom name={k} lang={lang} sizes="(min-width: 900px) 30vw, 48vw" /></div>))}
+  </div></section>
 </Base>
-
 <script>
-  // ---- Carrousels : flèches, glisser à la souris, clavier, barre de progression (le tactile défile nativement) ----
-  let dragged = false;
-  document.querySelectorAll<HTMLElement>('[data-gcarousel]').forEach((root) => {
-    const track = root.querySelector<HTMLElement>('.g-track')!;
-    const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
-    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
-    const bar = root.querySelector<HTMLElement>('.rv-progress span')!;
-    const step = () => track.clientWidth * 0.8;
-    const update = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      const ratio = track.clientWidth / track.scrollWidth;
-      const pos = max > 0 ? track.scrollLeft / max : 0;
-      bar.style.setProperty('--w', `${ratio * 100}%`);
-      bar.style.setProperty('--x', `${pos * (1 / ratio - 1) * 100}%`);
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= max - 2;
-    };
-    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
-    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
-    track.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }
-    });
-    track.addEventListener('scroll', update, { passive: true });
-    addEventListener('resize', update);
-    track.querySelectorAll('img').forEach((img) => img.addEventListener('load', update, { once: true }));
-    update();
-
-    let down = false, startX = 0, startLeft = 0;
-    track.addEventListener('pointerdown', (e) => {
-      if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      down = true; dragged = false; startX = e.clientX; startLeft = track.scrollLeft;
-    });
-    addEventListener('pointermove', (e) => {
-      if (!down) return;
-      const dx = e.clientX - startX;
-      if (!dragged && Math.abs(dx) > 6) { dragged = true; track.classList.add('is-dragging'); }
-      if (dragged) track.scrollLeft = startLeft - dx;
-    });
-    addEventListener('pointerup', () => {
-      if (!down) return;
-      down = false;
-      track.classList.remove('is-dragging');
-      setTimeout(() => { dragged = false; }, 0);
-    });
-    track.addEventListener('dragstart', (e) => e.preventDefault());
+  const chips = document.querySelector<HTMLElement>('[data-chips]')!;
+  chips.hidden = false;
+  chips.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest('button');
+    if (!b) return;
+    chips.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll<HTMLElement>('.brick').forEach((el) => { el.hidden = !!b.dataset.f && el.dataset.ch !== b.dataset.f; });
   });
-
-  // ---- Visionneuse : clic sur une photo → grand format, flèches / clavier, Échap pour fermer ----
-  const dlg = document.querySelector<HTMLDialogElement>('[data-lb]');
-  const items = [...document.querySelectorAll<HTMLAnchorElement>('[data-lightbox]')];
-  if (dlg && items.length) {
-    const img = dlg.querySelector<HTMLImageElement>('[data-lb-img]')!;
-    const cap = dlg.querySelector<HTMLElement>('[data-lb-cap]')!;
-    const post = dlg.querySelector<HTMLAnchorElement>('[data-lb-post]')!;
-    let i = 0;
-    const show = (n: number) => {
-      i = (n + items.length) % items.length;
-      const a = items[i];
-      img.src = a.href;
-      img.alt = a.dataset.caption ?? '';
-      cap.textContent = a.dataset.caption ?? '';
-      post.href = a.dataset.post ?? '#';
-    };
-    items.forEach((a, n) => a.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (dragged) return; // un glissement de carrousel n'ouvre pas la visionneuse
-      show(n);
-      dlg.showModal();
-      document.body.style.overflow = 'hidden';
-    }));
-    dlg.addEventListener('close', () => { document.body.style.overflow = ''; items[i]?.focus(); });
-    dlg.querySelector('[data-lb-close]')!.addEventListener('click', () => dlg.close());
-    dlg.querySelector('[data-lb-prev]')!.addEventListener('click', () => show(i - 1));
-    dlg.querySelector('[data-lb-next]')!.addEventListener('click', () => show(i + 1));
-    dlg.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') show(i + 1);
-      if (e.key === 'ArrowLeft') show(i - 1);
-    });
-    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
-  }
 </script>

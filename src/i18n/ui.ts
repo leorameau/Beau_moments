@@ -4,7 +4,7 @@ import type { Lang } from './locales';
 
 const nl = {
   nav: {
-    home: 'Home', catering: 'Catering', atelier: 'Atelier', takeaway: 'Afhaal', gallery: 'Galerij', about: 'Over ons',
+    home: 'Home', catering: 'Ons aanbod', atelier: 'Atelier', takeaway: 'Afhaal', gallery: 'Galerij', about: 'Over ons',
     book: 'Aanvraag', menu: 'Menu', close: 'Sluiten', skip: 'Naar de inhoud', language: 'Taal', main: 'Hoofdmenu',
   },
   meta: {
@@ -73,14 +73,6 @@ const nl = {
     ],
     typesLabel: 'Formules',
     typesTitle: 'Voor elk moment',
-    processLabel: 'Werkwijze',
-    processTitle: 'Zo werken we',
-    process: [
-      { title: 'Kennismaking', text: 'Een mooi moment begint bij een goed gesprek. Vertel ons over je event.' },
-      { title: 'Voorstel', text: 'We sturen een voorstel op maat: menu, verloop, bediening en prijs.' },
-      { title: 'Voorbereiding', text: 'We bestellen de beste producten en bereiden alles voor in ons atelier.' },
-      { title: 'Jouw moment', text: 'Op de dag zelf zorgen wij voor alles. Jij geniet van je gasten.' },
-    ],
     faqTitle: 'Veelgestelde vragen',
     faqIntro: "Staat je vraag er niet bij? Bel of mail ons gerust: we denken graag mee over jouw moment.",
     faq: [
@@ -88,13 +80,10 @@ const nl = {
       { q: "Hoe ver op voorhand moet ik boeken?", a: "Hoe vroeger hoe beter, zeker voor weekends, communies en huwelijken. Contacteer ons zodra je datum vastligt, dan houden we die voor je vrij." },
       { q: "Voor hoeveel gasten koken jullie?", a: "Van een diner voor twee tot een groot feest. In ons atelier ontvangen we 8 tot 18 personen; voor grotere groepen kiezen we samen de formule die het best past, zoals een receptie of walking dinner." },
       { q: "Kunnen we het menu zelf samenstellen?", a: "Ja. We stellen het menu samen met jou op, rond het seizoen, je smaak en de gelegenheid. Bert stelt gerechten voor en past ze aan tot alles klopt." },
-      { q: "Houden jullie rekening met allergieën en dieetwensen?", a: "Ja. Vermeld allergieën en dieetwensen bij je aanvraag; we passen de gerechten aan zonder in te boeten op smaak of presentatie." },
-      { q: "Hebben jullie vegetarische opties?", a: "Zeker. Vegetarische gerechten kunnen in elk menu, voor één gast of voor het hele gezelschap." },
+      { q: "Houden jullie rekening met allergieën?", a: "Ja. Vermeld allergieën en dieetwensen bij je aanvraag; we passen de gerechten aan zonder in te boeten op smaak of presentatie." },
       { q: "Hebben jullie alcoholvrije opties?", a: "Ja, bijvoorbeeld AWA Shiso, een verfijnde alcoholvrije sparkling met Japanse signatuur, naast bubbels of wijn bij het diner." },
-      { q: "Brengen jullie servies, glazen en bediening mee?", a: "Dat kan. We verzorgen de bediening, en op vraag ook servies, glazen, de gedekte tafel en de bloemen. Wat je nodig hebt, staat duidelijk in je voorstel." },
-      { q: "Wat gebeurt er na het event?", a: "Wij ruimen alles op voor we vertrekken. Onze klanten vinden hun keuken spic en span terug." },
+      { q: "Brengen jullie servies en bediening mee?", a: "Dat kan. We verzorgen de bediening, en op vraag ook servies, glazen, de gedekte tafel en de bloemen. Wat je nodig hebt, staat duidelijk in je voorstel." },
       { q: "Hoe vraag ik een prijs aan?", a: "Vul het aanvraagformulier in of bel ons. Elk voorstel is op maat en hangt af van het menu, het aantal gasten en de bediening; je krijgt een duidelijk overzicht voor je bevestigt." },
-      { q: "Hoe werkt het afhaalmenu?", a: "Elke week een nieuw menu, aangekondigd op Instagram. Je bestelt uitsluitend telefonisch tot en met donderdag en haalt op vrijdag af in ons atelier, Industrielaan 3/C1 in Maldegem." },
     ],
     formLabel: 'Aanvraag',
     formTitle: 'Vertel ons over je moment',
@@ -118,15 +107,13 @@ const nl = {
     contactText: 'Meer info of reserveren? Bel of stuur ons een berichtje.',
     faqIntro: "Een privé diner in ons atelier in Maldegem, voor 8 tot 18 personen. Nog een vraag? Bel of mail ons gerust.",
     faq: [
-      { q: "Hoeveel personen kunnen er in het atelier?", a: "Het atelier is ideaal voor 8 tot 18 personen, aan één lange tafel." },
+      { q: "Voor hoeveel personen?", a: "Het atelier is ideaal voor 8 tot 18 personen, aan één lange tafel." },
       { q: "Is het atelier privé?", a: "Ja. Tijdens jouw diner is het atelier volledig voor jouw gezelschap; er zitten geen andere gasten." },
-      { q: "Voor welke gelegenheden is het atelier geschikt?", a: "Voor een verjaardag, een familiediner, een klantendiner of gewoon een avond met vrienden: elk moment dat je in alle rust wil vieren." },
-      { q: "Wie kookt en wie bedient?", a: "Bert kookt in de open keuken van het atelier, Aude en het team verzorgen de bediening aan tafel." },
       { q: "Kunnen we het menu zelf kiezen?", a: "Ja, we stellen het menu samen met jou op, afgestemd op je gasten en het seizoen." },
-      { q: "Houden jullie rekening met allergieën en vegetarische gasten?", a: "Zeker. Vermeld allergieën en dieetwensen bij je aanvraag, dan passen we de gerechten aan." },
+      { q: "Houden jullie rekening met allergieën?", a: "Zeker. Vermeld allergieën en dieetwensen bij je aanvraag, dan passen we de gerechten aan." },
       { q: "Zorgen jullie ook voor de dranken?", a: "Ja: bubbels bij de ontvangst, wijn bij het diner en ook alcoholvrij, zoals AWA Shiso. We stemmen de dranken af op je menu." },
-      { q: "Hoe reserveer ik het atelier en wat kost het?", a: "Vul het aanvraagformulier in of bel Aude of Bert. Je krijgt een voorstel op maat, afhankelijk van het menu en het aantal gasten." },
-      { q: "Waar ligt het atelier en is er parking?", a: "Aan de Industrielaan 3/C1 in Maldegem, waar je makkelijk kan parkeren." },
+      { q: "Hoe reserveer ik en wat kost het?", a: "Vul het aanvraagformulier in of bel Aude of Bert. Je krijgt een voorstel op maat, afhankelijk van het menu en het aantal gasten." },
+      { q: "Waar ligt het en is er parking?", a: "Aan de Industrielaan 3/C1 in Maldegem, waar je makkelijk kan parkeren." },
     ],
   },
   takeaway: {
@@ -213,7 +200,7 @@ type UI = typeof nl;
 
 const fr: UI = {
   nav: {
-    home: 'Accueil', catering: 'Traiteur', atelier: 'Atelier', takeaway: 'À emporter', gallery: 'Galerie', about: 'À propos',
+    home: 'Accueil', catering: 'Nos services', atelier: 'Atelier', takeaway: 'À emporter', gallery: 'Galerie', about: 'À propos',
     book: 'Demande', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', language: 'Langue', main: 'Menu principal',
   },
   meta: {
@@ -282,28 +269,17 @@ const fr: UI = {
     ],
     typesLabel: 'Formules',
     typesTitle: 'Pour chaque moment',
-    processLabel: 'Méthode',
-    processTitle: 'Comment nous travaillons',
-    process: [
-      { title: 'Rencontre', text: 'Un beau moment commence par une bonne conversation. Parlez-nous de votre événement.' },
-      { title: 'Proposition', text: 'Nous envoyons une proposition sur mesure : menu, déroulement, service et prix.' },
-      { title: 'Préparation', text: 'Nous commandons les meilleurs produits et préparons tout dans notre atelier.' },
-      { title: 'Votre moment', text: 'Le jour même, nous nous occupons de tout. Vous profitez de vos invités.' },
-    ],
     faqTitle: 'Questions fréquentes',
     faqIntro: "Votre question n’y figure pas ? Appelez-nous ou écrivez-nous : nous réfléchissons volontiers avec vous à votre moment.",
     faq: [
       { q: "Dans quelle région travaillez-vous ?", a: "Nous partons de notre atelier à Maldegem et travaillons dans le Meetjesland, à Bruges, Gand et environs. Votre lieu est plus loin ? N’hésitez pas à nous le demander, nous regardons ensemble." },
-      { q: "Combien de temps à l’avance faut-il réserver ?", a: "Le plus tôt possible, surtout pour les week-ends, les communions et les mariages. Contactez-nous dès que votre date est fixée, nous la bloquons pour vous." },
+      { q: "Quand faut-il réserver ?", a: "Le plus tôt possible, surtout pour les week-ends, les communions et les mariages. Contactez-nous dès que votre date est fixée, nous la bloquons pour vous." },
       { q: "Pour combien d’invités cuisinez-vous ?", a: "Du dîner pour deux à la grande fête. À l’atelier, nous accueillons 8 à 18 personnes ; pour les groupes plus grands, nous choisissons ensemble la formule la plus adaptée, comme une réception ou un walking dinner." },
-      { q: "Pouvons-nous composer le menu nous-mêmes ?", a: "Oui. Nous composons le menu avec vous, selon la saison, vos goûts et l’occasion. Bert propose des plats et les ajuste jusqu’à ce que tout soit parfait." },
-      { q: "Tenez-vous compte des allergies et régimes ?", a: "Oui. Indiquez allergies et régimes dans votre demande ; nous adaptons les plats sans rien perdre en goût ni en présentation." },
-      { q: "Proposez-vous des plats végétariens ?", a: "Bien sûr. Des plats végétariens peuvent figurer dans chaque menu, pour un invité ou pour toute la tablée." },
+      { q: "Peut-on composer le menu ?", a: "Oui. Nous composons le menu avec vous, selon la saison, vos goûts et l’occasion. Bert propose des plats et les ajuste jusqu’à ce que tout soit parfait." },
+      { q: "Tenez-vous compte des allergies ?", a: "Oui. Indiquez allergies et régimes dans votre demande ; nous adaptons les plats sans rien perdre en goût ni en présentation." },
       { q: "Proposez-vous des options sans alcool ?", a: "Oui, par exemple AWA Shiso, un pétillant raffiné sans alcool d’inspiration japonaise, à côté des bulles ou du vin au dîner." },
-      { q: "Apportez-vous vaisselle, verres et service ?", a: "C’est possible. Nous assurons le service et, sur demande, la vaisselle, les verres, la table dressée et les fleurs. Tout ce qui est prévu figure clairement dans votre proposition." },
-      { q: "Que se passe-t-il après l’événement ?", a: "Nous rangeons tout avant de partir. Nos clients retrouvent leur cuisine impeccable." },
+      { q: "Apportez-vous la vaisselle ?", a: "C’est possible. Nous assurons le service et, sur demande, la vaisselle, les verres, la table dressée et les fleurs. Tout ce qui est prévu figure clairement dans votre proposition." },
       { q: "Comment obtenir un prix ?", a: "Remplissez le formulaire de demande ou appelez-nous. Chaque proposition est sur mesure selon le menu, le nombre d’invités et le service ; vous recevez un aperçu clair avant de confirmer." },
-      { q: "Comment fonctionne le menu à emporter ?", a: "Un nouveau menu chaque semaine, annoncé sur Instagram. Vous commandez uniquement par téléphone jusqu’au jeudi inclus et retirez le vendredi à notre atelier, Industrielaan 3/C1 à Maldegem." },
     ],
     formLabel: 'Demande',
     formTitle: 'Parlez-nous de votre moment',
@@ -327,15 +303,13 @@ const fr: UI = {
     contactText: 'Plus d’infos ou réserver ? Appelez-nous ou envoyez-nous un message.',
     faqIntro: "Un dîner privé dans notre atelier à Maldegem, pour 8 à 18 personnes. Une autre question ? Appelez-nous ou écrivez-nous.",
     faq: [
-      { q: "Combien de personnes peut accueillir l’atelier ?", a: "L’atelier est idéal pour 8 à 18 personnes, autour d’une longue table." },
+      { q: "Pour combien de personnes ?", a: "L’atelier est idéal pour 8 à 18 personnes, autour d’une longue table." },
       { q: "L’atelier est-il privatisé ?", a: "Oui. Pendant votre dîner, l’atelier est entièrement réservé à votre groupe ; il n’y a pas d’autres convives." },
-      { q: "Pour quelles occasions ?", a: "Un anniversaire, un dîner de famille, un dîner clients ou simplement une soirée entre amis : tout moment à célébrer au calme." },
-      { q: "Qui cuisine et qui sert ?", a: "Bert cuisine dans la cuisine ouverte de l’atelier ; Aude et l’équipe assurent le service à table." },
       { q: "Pouvons-nous choisir le menu ?", a: "Oui, nous composons le menu avec vous, selon vos invités et la saison." },
-      { q: "Tenez-vous compte des allergies et des végétariens ?", a: "Bien sûr. Indiquez allergies et régimes dans votre demande, nous adaptons les plats." },
+      { q: "Tenez-vous compte des allergies ?", a: "Bien sûr. Indiquez allergies et régimes dans votre demande, nous adaptons les plats." },
       { q: "Vous occupez-vous des boissons ?", a: "Oui : des bulles à l’accueil, du vin au dîner et aussi des options sans alcool, comme AWA Shiso. Nous accordons les boissons à votre menu." },
-      { q: "Comment réserver l’atelier et quel est le prix ?", a: "Remplissez le formulaire de demande ou appelez Aude ou Bert. Vous recevez une proposition sur mesure, selon le menu et le nombre d’invités." },
-      { q: "Où se trouve l’atelier et peut-on se garer ?", a: "Industrielaan 3/C1 à Maldegem, où il est facile de se garer." },
+      { q: "Comment réserver, à quel prix ?", a: "Remplissez le formulaire de demande ou appelez Aude ou Bert. Vous recevez une proposition sur mesure, selon le menu et le nombre d’invités." },
+      { q: "Où est l’atelier, peut-on se garer ?", a: "Industrielaan 3/C1 à Maldegem, où il est facile de se garer." },
     ],
   },
   takeaway: {
@@ -420,7 +394,7 @@ const fr: UI = {
 
 const en: UI = {
   nav: {
-    home: 'Home', catering: 'Catering', atelier: 'Atelier', takeaway: 'Takeaway', gallery: 'Gallery', about: 'About',
+    home: 'Home', catering: 'What we do', atelier: 'Atelier', takeaway: 'Takeaway', gallery: 'Gallery', about: 'About',
     book: 'Enquire', menu: 'Menu', close: 'Close', skip: 'Skip to content', language: 'Language', main: 'Main menu',
   },
   meta: {
@@ -489,14 +463,6 @@ const en: UI = {
     ],
     typesLabel: 'Formats',
     typesTitle: 'For every moment',
-    processLabel: 'How it works',
-    processTitle: 'How we work',
-    process: [
-      { title: 'Introduction', text: 'A beautiful moment starts with a good conversation. Tell us about your event.' },
-      { title: 'Proposal', text: 'We send a tailored proposal: menu, timing, service and price.' },
-      { title: 'Preparation', text: 'We order the best produce and prepare everything in our atelier.' },
-      { title: 'Your moment', text: 'On the day we take care of everything. You enjoy your guests.' },
-    ],
     faqTitle: 'Frequently asked questions',
     faqIntro: "Can’t find your question? Call or email us: we are happy to think along about your moment.",
     faq: [
@@ -505,12 +471,9 @@ const en: UI = {
       { q: "How many guests do you cook for?", a: "From a dinner for two to a large celebration. At our atelier we welcome 8 to 18 guests; for larger groups we choose the best format together, such as a reception or walking dinner." },
       { q: "Can we put the menu together ourselves?", a: "Yes. We build the menu with you, around the season, your tastes and the occasion. Bert suggests dishes and fine-tunes them until everything is right." },
       { q: "Do you cater for allergies and dietary needs?", a: "Yes. Mention allergies and dietary needs in your enquiry; we adapt the dishes without compromising on taste or presentation." },
-      { q: "Do you offer vegetarian dishes?", a: "Of course. Vegetarian dishes can be part of any menu, for one guest or the whole table." },
       { q: "Do you offer alcohol-free options?", a: "Yes, for example AWA Shiso, a refined alcohol-free sparkling with a Japanese signature, alongside bubbles or wine with dinner." },
       { q: "Do you bring tableware, glasses and staff?", a: "We can. We take care of the service and, on request, the tableware, glasses, laid table and flowers. Everything included is set out clearly in your proposal." },
-      { q: "What happens after the event?", a: "We clear everything away before we leave. Our clients find their kitchen spotless." },
       { q: "How do I get a price?", a: "Fill in the enquiry form or call us. Every proposal is tailored to the menu, number of guests and service; you receive a clear overview before you confirm." },
-      { q: "How does the takeaway menu work?", a: "A new menu every week, announced on Instagram. Order by phone only, up to and including Thursday, and collect on Friday at our atelier, Industrielaan 3/C1 in Maldegem." },
     ],
     formLabel: 'Enquiry',
     formTitle: 'Tell us about your moment',
@@ -534,15 +497,13 @@ const en: UI = {
     contactText: 'More information or a booking? Call us or send us a message.',
     faqIntro: "A private dinner in our atelier in Maldegem, for 8 to 18 guests. Another question? Call or email us.",
     faq: [
-      { q: "How many guests does the atelier seat?", a: "The atelier is ideal for 8 to 18 guests, around one long table." },
+      { q: "For how many guests?", a: "The atelier is ideal for 8 to 18 guests, around one long table." },
       { q: "Is the atelier private?", a: "Yes. During your dinner the atelier is entirely yours; there are no other guests." },
-      { q: "What occasions is the atelier for?", a: "A birthday, a family dinner, a client dinner or simply an evening with friends: any moment you want to celebrate in peace." },
-      { q: "Who cooks and who serves?", a: "Bert cooks in the atelier’s open kitchen; Aude and the team look after the service at the table." },
       { q: "Can we choose the menu?", a: "Yes, we put the menu together with you, tailored to your guests and the season." },
-      { q: "Do you cater for allergies and vegetarians?", a: "Of course. Mention allergies and dietary needs in your enquiry and we will adapt the dishes." },
+      { q: "Do you cater for allergies?", a: "Of course. Mention allergies and dietary needs in your enquiry and we will adapt the dishes." },
       { q: "Do you take care of the drinks?", a: "Yes: bubbles on arrival, wine with dinner and alcohol-free options too, such as AWA Shiso. We match the drinks to your menu." },
-      { q: "How do I book the atelier and what does it cost?", a: "Fill in the enquiry form or call Aude or Bert. You receive a tailored proposal based on the menu and number of guests." },
-      { q: "Where is the atelier and is there parking?", a: "At Industrielaan 3/C1 in Maldegem, where parking is easy." },
+      { q: "How do I book and what does it cost?", a: "Fill in the enquiry form or call Aude or Bert. You receive a tailored proposal based on the menu and number of guests." },
+      { q: "Where is it and is there parking?", a: "At Industrielaan 3/C1 in Maldegem, where parking is easy." },
     ],
   },
   takeaway: {

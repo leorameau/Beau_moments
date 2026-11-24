@@ -1,0 +1,22 @@
+---
+// Ouverture d'une page intérieure : bandeau photo avec le titre, puis une introduction (texte à gauche, photo à droite).
+import Photo from './Photo.astro';
+import type { PhotoKey } from '../lib/photos';
+import type { Lang } from '../i18n/locales';
+import { nbsp } from '../lib/nbsp';
+interface Props {
+  lang: Lang; label: string; title: string; lead: string; cover: PhotoKey; photo: PhotoKey;
+  /** Cadrage du bandeau (object-position) */
+  pos?: string;
+}
+const { lang, label, title, lead, cover, photo, pos = '50% 50%' } = Astro.props;
+---
+<section class="hero" style={`--pos:${pos}`}>
+  <Photo name={cover} lang={lang} eager class="cover" quality={90} sizes="100vw" />
+  <p class="eyebrow">{label}</p>
+  <h1>{title}</h1>
+</section>
+<section class="pad wrap split flip">
+  <Photo name={photo} lang={lang} sizes="(min-width: 1300px) 570px, (min-width: 800px) 45vw, 92vw" />
+  <div><p class="lede">{nbsp(lead)}</p><slot /></div>
+</section>

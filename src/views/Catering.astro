@@ -1,20 +1,23 @@
 ---
 // Catering : les formules (privé chef aan huis, feesten, huwelijk, bedrijfsevents), ce qui est inclus,
-// la méthode, la FAQ et le formulaire de demande.
+// la FAQ et le formulaire de demande.
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
 import Faq from '../components/Faq.astro';
-import EnquiryForm from '../components/EnquiryForm.astro';
-import Sketch from '../components/Sketch.astro';
+import { dishes } from '../lib/dishes';
 import { eventTypes } from '../lib/events';
-import { site, abs, tel, mailHref } from '../lib/site';
+import { site, abs } from '../lib/site';
 import { pagePath, eventPath, allLangs } from '../i18n/routes';
-import { localeInfo, type Lang } from '../i18n/locales';
+import { L as Lx, localeInfo, type Lang } from '../i18n/locales';
 import { t } from '../i18n/ui';
+import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import Formulas from '../components/Formulas.astro';
+import type { PhotoKey } from '../lib/photos';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const s = t(lang);
 const c = s.catering;
+const L = Lx(lang);
 const ld = [
   {
     '@type': 'Service',
@@ -34,96 +37,21 @@ const ld = [
   },
   { '@type': 'FAQPage', mainEntity: c.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
 ];
+const inclPhotos: PhotoKey[] = ['langoustine-ceviche', 'scallops', 'waiter-tray', 'table-lemons', 'flowers', 'table-flowers'];
 ---
 <Base lang={lang} title={s.meta.cateringTitle} description={s.meta.cateringDesc} alternates={allLangs((l) => pagePath('catering', l))}
-  section="catering" breadcrumbs={[{ name: s.nav.catering, path: pagePath('catering', lang) }]} extraLd={ld} ogPhoto="table-long" hideCta>
-  <section class="hero">
-    <div class="wrap g12">
-      <div class="hero-text">
-        <p class="label rise" style="--d:.05s">{c.label}</p>
-        <h1 style="font-size:clamp(2.8rem,1.5rem + 3.8vw,5.5rem);line-height:1">{c.title}</h1>
-        <p class="lead rise" style="--d:.45s">{c.lead}</p>
-        <p class="actions rise" style="--d:.6s"><a class="btn btn-solid" href="#aanvraag">{c.cta}</a></p>
-      </div>
-      <div class="hero-media"><Photo name="plating-sauce" lang={lang} eager maxh="calc(100svh - var(--header-h) - 8rem)" sizes="(min-width: 900px) 40vw, 100vw" /></div>
-    </div>
+  section="catering" breadcrumbs={[{ name: s.nav.catering, path: pagePath('catering', lang) }]} extraLd={ld} ogPhoto="table-long" enquiry={{ look: 'a', photo: 'table-candles' }}>
+  <PageHero lang={lang} label={s.nav.catering} title={L('Catering, private dining & events', 'Traiteur, private dining & événements', 'Catering, private dining & events')} lead={c.lead} cover="dinner-served" photo="plating-sauce">
+    <a class="btn fill" href="#aanvraag">{c.cta}</a>
+  </PageHero>
+  <section class="pad wrap"><h2 class="head">{c.typesTitle}</h2><Formulas lang={lang} /></section>
+  <section class="pad stone"><div class="wrap">
+    <h2 class="head">{c.includedTitle}</h2>
+    <ul class="grid" role="list" style="--n:3">{c.included.map((it, i) => <li><Photo name={inclPhotos[i]} lang={lang} ratio="1" sizes="(min-width: 1300px) 390px, (min-width: 800px) 30vw, 46vw" /><h3>{it.title}</h3><p>{it.text}</p></li>)}</ul>
+  </div></section>
+  <section class="pad wrap">
+    <div class="head"><h2>{s.home.dishesTitle}</h2><p class="under">{s.home.dishesLead}</p></div>
+    <ul class="grid" role="list">{dishes.slice(0, 4).map((d) => <li><Photo name={d.photo} lang={lang} ratio="1" sizes="(min-width: 1300px) 285px, (min-width: 720px) 23vw, 46vw" /><h3>{d.name[lang]}</h3><p class="one">{d.notes[lang]}</p></li>)}</ul>
   </section>
-
-  <section class="section bg-2">
-    <div class="wrap">
-      <div class="section-head">
-        <div><p class="label" data-reveal><span class="n">01</span> {c.typesLabel}</p><h2>{c.typesTitle}</h2></div>
-      </div>
-      <div class="grid-4 formulas">
-        {eventTypes.map((e, i) => (
-          <a class="type-card" href={eventPath(e.key, lang)} data-reveal style={`--d:${i * 0.08}s`}>
-            <Photo name={e.hero} lang={lang} sizes="(min-width: 1320px) 310px, (min-width: 960px) 23vw, 50vw" />
-            <h3>{e.copy[lang].name}</h3>
-            <p>{e.copy[lang].short}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap section g12 included-split">
-    <div class="included-art"><Sketch name="cloche" label={c.includedTitle} /></div>
-    <div>
-    <div class="section-head">
-      <div><p class="label" data-reveal><span class="n">02</span> {c.includedLabel}</p><h2>{c.includedTitle}</h2></div>
-    </div>
-    <ul class="included">
-      {c.included.map((it, i) => <li data-reveal style={`--d:${(i % 2) * 0.1}s`}><h3>{it.title}</h3><p>{it.text}</p></li>)}
-    </ul>
-    </div>
-  </section>
-
-  <section class="section bg-sand">
-    <div class="wrap">
-      <div class="section-head">
-        <div><p class="label" data-reveal><span class="n">03</span> {c.processLabel}</p><h2>{c.processTitle}</h2></div>
-      </div>
-      <!-- Ligne du temps : la ligne se dessine, puis chaque étape apparaît -->
-      <ol class="timeline" data-reveal>
-        {c.process.map((p, i) => (
-          <li style={`--i:${i}`}>
-            <span class="tl-dot" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{p.title}</h3>
-            <p>{p.text}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- FAQ : en-tête sur toute la largeur, questions sur deux colonnes -->
-  <section class="wrap section faq-wide">
-    <div class="section-head">
-      <div><p class="label" data-reveal><span class="n">04</span> {s.common.faq}</p><h2>{c.faqTitle}</h2></div>
-      <div class="head-side" data-reveal>
-        <p class="faq-intro">{c.faqIntro}</p>
-        <p class="faq-contacts">{site.contacts.map((x) => <a href={tel(x.phone)}>{x.name} · {x.phone}</a>)}<a href={mailHref}>{site.email}</a></p>
-      </div>
-    </div>
-    <div class="faq-cols">
-      <Faq items={c.faq.slice(0, Math.ceil(c.faq.length / 2))} />
-      <Faq items={c.faq.slice(Math.ceil(c.faq.length / 2))} />
-    </div>
-  </section>
-
-  <section class="section bg-2" id="aanvraag">
-    <div class="wrap g12 form-grid">
-      <div>
-        <p class="label" data-reveal><span class="n">05</span> {c.formLabel}</p>
-        <h2 data-split>{c.formTitle}</h2>
-        <p class="lead" data-reveal>{c.formText}</p>
-        <div class="contact-lines" data-reveal>
-          {site.contacts.map((x) => <span>{x.name} · <a href={tel(x.phone)}>{x.phone}</a></span>)}
-          <a href={mailHref}>{site.email}</a>
-          <a href={site.social.instagram.url} target="_blank" rel="noopener">@{site.social.instagram.handle}</a>
-        </div>
-      </div>
-      <EnquiryForm lang={lang} />
-    </div>
-  </section>
+  <section class="pad wrap duo"><h2>{s.catering.faqTitle}</h2><Faq items={c.faq} /></section>
 </Base>

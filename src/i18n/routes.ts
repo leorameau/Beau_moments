@@ -10,12 +10,11 @@ export const pages = {
   gallery: { nl: '/galerij/', fr: '/fr/galerie/', en: '/en/gallery/' },
   about: { nl: '/over-ons/', fr: '/fr/a-propos/', en: '/en/about/' },
   legal: { nl: '/juridische-informatie/', fr: '/fr/mentions-legales/', en: '/en/legal-notice/' },
-  privacy: { nl: '/privacy/', fr: '/fr/confidentialite/', en: '/en/privacy/' },
 } satisfies Record<string, Record<Lang, string>>;
 
 export type PageKey = keyof typeof pages;
 
-/** Formules de catering : chacune a sa page sous /catering/ */
+/** Formules de catering : chacune est une section (ancre) de la page catering */
 export const eventSlugs = {
   home: { nl: 'prive-chef-aan-huis', fr: 'chef-a-domicile', en: 'private-chef-at-home' },
   celebrations: { nl: 'feesten', fr: 'fetes', en: 'celebrations' },
@@ -25,8 +24,17 @@ export const eventSlugs = {
 
 export type EventKey = keyof typeof eventSlugs;
 
-export const pagePath = (key: PageKey, lang: Lang) => pages[key][lang];
-export const eventPath = (key: EventKey, lang: Lang) => `${pages.catering[lang]}${eventSlugs[key][lang]}/`;
+/** Contenus sans page propre : une ancre sur la page légale (confidentialité) */
+const anchors = {
+  privacy: { page: 'legal', id: { nl: 'privacy', fr: 'confidentialite', en: 'privacy' } },
+} as const;
+type AnchorKey = keyof typeof anchors;
+export const anchorId = (key: AnchorKey, lang: Lang) => anchors[key].id[lang];
+
+export const pagePath = (key: PageKey | AnchorKey, lang: Lang): string =>
+  key === 'privacy' ? `${pages[anchors[key].page][lang]}#${anchors[key].id[lang]}` : pages[key][lang];
+/** Chaque formule est une section de la page catering */
+export const eventPath = (key: EventKey, lang: Lang) => `${pages.catering[lang]}#${eventSlugs[key][lang]}`;
 
 /** Construit { nl, fr, en } à partir d'une fonction */
 export const allLangs = (fn: (l: Lang) => string): Record<Lang, string> => ({ nl: fn('nl'), fr: fn('fr'), en: fn('en') });

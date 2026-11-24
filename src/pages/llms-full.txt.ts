@@ -43,10 +43,6 @@ export const GET: APIRoute = () => {
     '',
     ...s.catering.included.map((i) => `- **${i.title}**: ${i.text}`),
     '',
-    '### How we work',
-    '',
-    ...s.catering.process.map((p, i) => `${i + 1}. **${p.title}**: ${p.text}`),
-    '',
     ...eventTypes.flatMap((e) => {
       const c = e.copy.en;
       return [
@@ -104,7 +100,7 @@ export const GET: APIRoute = () => {
     '',
     `## Google reviews (${googleRating.score}/5, ${googleRating.count} reviews; Dutch, original wording)`,
     '',
-    ...reviews.map((r) => `- “${r.quote.nl}” — ${r.author} (${r.stars}/5)`),
+    ...reviews.map((r) => `- ${r.author} (${r.stars}/5): ${r.quote.nl}`),
     '',
   ];
   return new Response(parts.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

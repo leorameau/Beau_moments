@@ -3,6 +3,7 @@
 import type { APIRoute } from 'astro';
 import { site, abs, addressLine } from '../lib/site';
 import { eventTypes } from '../lib/events';
+import { feest } from '../lib/feestdagen';
 import { dishes } from '../lib/dishes';
 import { pagePath, eventPath } from '../i18n/routes';
 import { langs, localeInfo } from '../i18n/locales';
@@ -12,7 +13,7 @@ export const GET: APIRoute = () => {
   const lines = [
     `# ${site.name} — catering & private dining`,
     '',
-    `> BEAU MOMENTS is a catering and private dining business in Maldegem (East Flanders, Belgium), run by chef Bert and host Aude. "${site.tagline}" (passion on the plate, service from the heart).`,
+    `> BEAU MOMENTS is a catering and private dining business in Maldegem (East Flanders, Belgium), run by chef Bert and host Aude. Its motto is passion on the plate, service from the heart.`,
     '',
     'Chef Bert cooks refined, classic French cuisine with a modern touch; Aude organises every event and leads the service. They cater private dinners at home (private chef), celebrations and receptions, weddings and corporate events around Maldegem, Bruges and Ghent, host private dinners for 8 to 18 guests in their own atelier, and offer a weekly takeaway menu.',
     '',
@@ -27,6 +28,7 @@ export const GET: APIRoute = () => {
     `- Instagram: [@${ig.handle}](${ig.url})`,
     `- Enquiries: [enquiry form](${abs(pagePath('catering', 'en'))}#aanvraag)`,
     '- Takeaway: a new menu every week; order by phone only, until Thursday; collect on Friday at the atelier',
+    `- ${feest.en.label}: ${feest.en.prices.map((p) => `${p.name.replace(' *', '')} ${p.price}`).join(', ')}; ${feest.en.deadline} Order by email: ${site.takeawayEmail}`,
     `- Languages: ${langs.map((l) => `${localeInfo[l].name} (${abs(pagePath('home', l))})`).join(', ')}`,
     `- Full text of the site content: [llms-full.txt](${abs('/llms-full.txt')})`,
     '',

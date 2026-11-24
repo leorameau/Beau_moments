@@ -29,3 +29,79 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# Pages regroupées : les anciennes adresses mènent à la section correspondante
+[[redirects]]
+  from = "/catering/prive-chef-aan-huis/"
+  to = "/catering/#prive-chef-aan-huis"
+  status = 301
+
+[[redirects]]
+  from = "/catering/feesten/"
+  to = "/catering/#feesten"
+  status = 301
+
+[[redirects]]
+  from = "/catering/huwelijk/"
+  to = "/catering/#huwelijk"
+  status = 301
+
+[[redirects]]
+  from = "/catering/bedrijfsevents/"
+  to = "/catering/#bedrijfsevents"
+  status = 301
+
+[[redirects]]
+  from = "/fr/traiteur/chef-a-domicile/"
+  to = "/fr/traiteur/#chef-a-domicile"
+  status = 301
+
+[[redirects]]
+  from = "/fr/traiteur/fetes/"
+  to = "/fr/traiteur/#fetes"
+  status = 301
+
+[[redirects]]
+  from = "/fr/traiteur/mariage/"
+  to = "/fr/traiteur/#mariage"
+  status = 301
+
+[[redirects]]
+  from = "/fr/traiteur/entreprises/"
+  to = "/fr/traiteur/#entreprises"
+  status = 301
+
+[[redirects]]
+  from = "/en/catering/private-chef-at-home/"
+  to = "/en/catering/#private-chef-at-home"
+  status = 301
+
+[[redirects]]
+  from = "/en/catering/celebrations/"
+  to = "/en/catering/#celebrations"
+  status = 301
+
+[[redirects]]
+  from = "/en/catering/weddings/"
+  to = "/en/catering/#weddings"
+  status = 301
+
+[[redirects]]
+  from = "/en/catering/corporate/"
+  to = "/en/catering/#corporate"
+  status = 301
+
+[[redirects]]
+  from = "/privacy/"
+  to = "/juridische-informatie/#privacy"
+  status = 301
+
+[[redirects]]
+  from = "/fr/confidentialite/"
+  to = "/fr/mentions-legales/#confidentialite"
+  status = 301
+
+[[redirects]]
+  from = "/en/privacy/"
+  to = "/en/legal-notice/#privacy"
+  status = 301

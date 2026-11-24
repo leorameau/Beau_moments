@@ -1,0 +1,34 @@
+---
+// Les quatre formules : photo, nom, description ; le lien mène au formulaire.
+import Photo from './Photo.astro';
+import { eventTypes } from '../lib/events';
+import { t } from '../i18n/ui';
+import { eventSlugs, pagePath } from '../i18n/routes';
+import type { Lang } from '../i18n/locales';
+import { nbsp } from '../lib/nbsp';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const sizes = '(min-width: 1300px) 390px, (min-width: 720px) 30vw, 46vw';
+// Avec le dîner à l'atelier et l'afhaal : tout ce que propose BEAU MOMENTS
+const extra = [
+  { photo: 'private-dining-bowls' as const, name: s.home.privateLabel, text: s.atelier.lead, href: pagePath('atelier', lang) },
+  { photo: 'egg-shrimp-garden' as const, name: s.nav.takeaway, text: s.takeaway.lead, href: pagePath('takeaway', lang) },
+];
+---
+<ul class="grid" style="--n:3" role="list">
+  {eventTypes.map((e) => (
+    <li id={eventSlugs[e.key][lang]}>
+      <Photo name={e.hero} lang={lang} ratio="1" sizes={sizes} />
+      <h3><a class="cover-link" href="#aanvraag">{e.copy[lang].name}</a></h3>
+      <p>{nbsp(e.copy[lang].lead)}</p>
+    </li>
+  ))}
+  {extra.map((e) => (
+    <li>
+      <Photo name={e.photo} lang={lang} ratio="1" sizes={sizes} />
+      <h3><a class="cover-link" href={e.href}>{e.name}</a></h3>
+      <p>{e.text}</p>
+    </li>
+  ))}
+</ul>

@@ -1,17 +1,16 @@
 ---
 // Routeur unique : génère toutes les pages du site dans les trois langues, avec des adresses
-// traduites (ex. /catering/huwelijk/, /fr/traiteur/mariage/, /en/catering/weddings/).
+// traduites (ex. /catering/, /fr/traiteur/, /en/catering/).
 // Les adresses viennent de src/i18n/routes.ts ; le contenu de src/views/.
 import Home from '../views/Home.astro';
 import Catering from '../views/Catering.astro';
-import EventType from '../views/EventType.astro';
 import Atelier from '../views/Atelier.astro';
 import Takeaway from '../views/Takeaway.astro';
 import Gallery from '../views/Gallery.astro';
 import About from '../views/About.astro';
 import Legal from '../views/Legal.astro';
 import { langs } from '../i18n/locales';
-import { pages, eventSlugs, eventPath, type EventKey, type PageKey } from '../i18n/routes';
+import { pages, type PageKey } from '../i18n/routes';
 
 export function getStaticPaths() {
   const toParam = (p: string) => p.replace(/^\/|\/$/g, '') || undefined;
@@ -20,21 +19,16 @@ export function getStaticPaths() {
     for (const key of Object.keys(pages) as PageKey[]) {
       out.push({ params: { path: toParam(pages[key][lang]) }, props: { view: key, lang } });
     }
-    for (const ev of Object.keys(eventSlugs) as EventKey[]) {
-      out.push({ params: { path: toParam(eventPath(ev, lang)) }, props: { view: 'event', lang, eventKey: ev } });
-    }
   }
   return out;
 }
 
-const { view, lang, eventKey } = Astro.props as any;
+const { view, lang } = Astro.props as any;
 ---
 {view === 'home' && <Home lang={lang} />}
 {view === 'catering' && <Catering lang={lang} />}
-{view === 'event' && <EventType lang={lang} eventKey={eventKey} />}
 {view === 'atelier' && <Atelier lang={lang} />}
 {view === 'takeaway' && <Takeaway lang={lang} />}
 {view === 'gallery' && <Gallery lang={lang} />}
 {view === 'about' && <About lang={lang} />}
-{view === 'legal' && <Legal lang={lang} kind="legal" />}
-{view === 'privacy' && <Legal lang={lang} kind="privacy" />}
+{view === 'legal' && <Legal lang={lang} />}

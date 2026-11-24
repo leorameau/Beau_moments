@@ -1,28 +1,25 @@
 ---
-// Photo optimisée (AVIF/WebP, plusieurs tailles), toujours affichée ENTIÈRE :
-// le cadre prend exactement les proportions de la photo, rien n'est recadré.
-// « maxh » limite la hauteur (ex. « 70svh ») : la largeur se réduit alors en proportion.
-// La photo apparaît en fondu seulement une fois chargée (jamais de cadre vide qui s'anime).
-import { Picture } from 'astro:assets';
+// Photo optimisée (AVIF/WebP). « href » : lien ; « zoom » : s'ouvre dans la visionneuse (galerie) ; sinon image simple.
+import { Picture, getImage } from 'astro:assets';
 import { getPhoto, type PhotoKey } from '../lib/photos';
 import type { Lang } from '../i18n/locales';
 interface Props {
-  name: PhotoKey;
-  lang: Lang;
-  /** Largeur d'affichage, pour que le navigateur choisisse un fichier assez grand (jamais agrandi) */
-  sizes?: string;
-  class?: string;
-  eager?: boolean;
-  /** Hauteur maximale (CSS), la photo garde ses proportions */
-  maxh?: string;
+  name: PhotoKey; lang: Lang; sizes?: string; class?: string; style?: string; eager?: boolean;
+  /** Format du cadre (ex. « 4/5 ») ; par défaut, celui de la photo */
+  ratio?: string;
+  href?: string; zoom?: boolean;
+  /** Qualité d’encodage (bandeaux : plus haute) */
+  quality?: number;
 }
-const { name, lang, sizes = '100vw', class: cls, eager = false, maxh } = Astro.props;
+const { name, lang, sizes = '50vw', class: cls, style = '', eager = false, ratio, href, zoom = false, quality = 80 } = Astro.props;
 const p = getPhoto(name);
-// Tailles générées : jusqu'à la pleine résolution de l'original
-const widths = [...new Set([480, 720, 960, 1200, p.src.width].filter((w) => w <= p.src.width))];
-const r = (p.src.width / p.src.height).toFixed(4);
+const widths = [...new Set([320, 480, 720, 960, 1200, p.src.width].filter((w) => w <= p.src.width))];
+const box = zoom;
+const full = box ? (await getImage({ src: p.src, width: Math.min(1400, p.src.width), format: 'webp', quality: 80 })).src : href;
+const Tag = box || href ? 'a' : 'span';
+const attrs = box ? { 'data-lightbox': '', 'data-caption': p.alt[lang], 'data-post': p.post } : {};
 ---
-<figure class:list={['ph', cls, { fit: maxh }]} style={`--ratio:${p.src.width} / ${p.src.height};--r:${r}${maxh ? `;--maxh:${maxh}` : ''}`}>
-  <Picture src={p.src} alt={p.alt[lang]} widths={widths} sizes={sizes} formats={['avif', 'webp']} fallbackFormat="jpg" quality={74}
+<Tag class:list={['ph', cls]} href={full} style={`--ar:${ratio ?? `${p.src.width}/${p.src.height}`};${style}`} {...attrs}>
+  <Picture src={p.src} alt={p.alt[lang]} widths={widths} sizes={sizes} formats={['avif', 'webp']} fallbackFormat="jpg" quality={quality}
     loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />
-</figure>
+</Tag>

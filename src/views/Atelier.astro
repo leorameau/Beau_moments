@@ -1,13 +1,13 @@
 ---
 // Atelier : private dining à Maldegem (8 à 18 personnes), adresse, contact, FAQ.
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
 import Faq from '../components/Faq.astro';
-import ContactBlock from '../components/ContactBlock.astro';
-import { site, tel, mailHref } from '../lib/site';
+import { site } from '../lib/site';
 import { pagePath, allLangs } from '../i18n/routes';
 import { t } from '../i18n/ui';
 import type { Lang } from '../i18n/locales';
+import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const s = t(lang);
@@ -15,60 +15,17 @@ const a = s.atelier;
 const ld = [{ '@type': 'FAQPage', mainEntity: a.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }];
 ---
 <Base lang={lang} title={s.meta.atelierTitle} description={s.meta.atelierDesc} alternates={allLangs((l) => pagePath('atelier', l))}
-  section="atelier" breadcrumbs={[{ name: s.nav.atelier, path: pagePath('atelier', lang) }]} extraLd={ld} ogPhoto="atelier-dinner-from-above">
-  <section class="page-head">
-    <div class="wrap g12">
-      <div class="page-head-title">
-        <p class="label rise" style="--d:.05s">{a.label}</p>
-        <h1>{a.title}</h1>
-      </div>
-      <div class="page-head-lead"><p class="lead rise" style="--d:.4s">{a.lead}</p></div>
-    </div>
-  </section>
-
-  <section class="wrap g12 split" style="padding-bottom:clamp(5.5rem,3rem + 9vw,11rem)">
-    <div class="split-media"><Photo name="atelier-facade" lang={lang} eager maxh="var(--ph-max)" sizes="(min-width: 900px) 46vw, 100vw" /></div>
-    <div class="split-text">
-      <p class="label" data-reveal>{a.detailsLabel}</p>
-      <ContactBlock lang={lang} guests />
-    </div>
-  </section>
-
-  <section class="section bg-2">
-    <div class="wrap g12 split reverse">
-      <div class="split-media pair">
-        <Photo name="atelier-from-above" lang={lang} sizes="(min-width: 900px) 24vw, 50vw" />
-        <Photo name="atelier-dinner-from-above" lang={lang} sizes="(min-width: 900px) 24vw, 50vw" />
-      </div>
-      <div class="split-text">
-        <p class="label" data-reveal>{s.home.privateLabel}</p>
-        <h2 data-split>{a.introTitle}</h2>
-        {a.intro.map((p) => <p data-reveal>{p}</p>)}
-        <p data-reveal style="margin-top:2rem"><a class="btn btn-solid" href={`${pagePath('catering', lang)}#aanvraag`}>{s.catering.cta}</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap section">
-    <div class="interiors" data-reveal>
-      <Photo name="chef-plating" lang={lang} sizes="(min-width: 1320px) 420px, (min-width: 760px) 32vw, 50vw" />
-      <Photo name="apron-details" lang={lang} sizes="(min-width: 1320px) 420px, (min-width: 760px) 32vw, 50vw" />
-      <Photo name="ready-to-serve" lang={lang} sizes="(min-width: 1320px) 420px, (min-width: 760px) 32vw, 50vw" />
-    </div>
-  </section>
-
-  <!-- FAQ : en-tête pleine largeur, questions sur deux colonnes -->
-  <section class="wrap section faq-wide" style="padding-top:0">
-    <div class="section-head">
-      <div><p class="label" data-reveal>{s.common.faq}</p><h2>{s.nav.atelier}</h2></div>
-      <div class="head-side" data-reveal>
-        <p class="faq-intro">{a.faqIntro}</p>
-        <p class="faq-contacts">{site.contacts.map((x) => <a href={tel(x.phone)}>{x.name} · {x.phone}</a>)}<a href={mailHref}>{site.email}</a></p>
-      </div>
-    </div>
-    <div class="faq-cols">
-      <Faq items={a.faq.slice(0, Math.ceil(a.faq.length / 2))} />
-      <Faq items={a.faq.slice(Math.ceil(a.faq.length / 2))} />
-    </div>
-  </section>
+  section="atelier" breadcrumbs={[{ name: s.nav.atelier, path: pagePath('atelier', lang) }]} extraLd={ld} ogPhoto="atelier-dinner-from-above" enquiry={{ look: 'd', photo: 'atelier-facade', preset: 4 }}>
+  <PageHero lang={lang} label={s.nav.atelier} title={a.title} lead={a.lead} cover="atelier-dinner-from-above" photo="atelier-from-above">
+    <a class="btn fill" href="#aanvraag">{s.catering.cta}</a>
+  </PageHero>
+  <section class="pad stone"><div class="wrap">
+  <div class="duo">
+    <h2>{a.introTitle}</h2>
+    <div>{a.intro.map((p) => <p class="para">{p}</p>)}
+      <p class="contacts"><a href={site.mapUrl} target="_blank" rel="noopener">{site.address.street}, {site.address.postalCode} {site.address.city}</a></p></div>
+  </div>
+    <ul class="grid after" role="list" style="--n:4">{(['atelier-dining-room', 'chef-plating', 'apron-details', 'ready-to-serve'] as const).map((k) => <li><Photo name={k} lang={lang} ratio="3/4" sizes="(min-width: 1300px) 285px, (min-width: 800px) 23vw, 46vw" /></li>)}</ul>
+  </div></section>
+  <section class="pad wrap duo"><h2>{s.catering.faqTitle}</h2><Faq items={a.faq} /></section>
 </Base>

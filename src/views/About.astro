@@ -1,7 +1,8 @@
 ---
-// Over ons : l'histoire de Bert & Aude, leurs rôles, leurs valeurs.
+// Over ons : Bert & Aude, leur histoire et leurs rôles.
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
 import { site, abs } from '../lib/site';
 import { pagePath, allLangs } from '../i18n/routes';
 import { t } from '../i18n/ui';
@@ -21,60 +22,14 @@ const ld = [{
 }];
 ---
 <Base lang={lang} title={s.meta.aboutTitle} description={s.meta.aboutDesc} alternates={allLangs((l) => pagePath('about', l))}
-  section="about" breadcrumbs={[{ name: s.nav.about, path: pagePath('about', lang) }]} extraLd={ld} ogPhoto="bert-and-aude">
-  <section class="hero">
-    <div class="wrap g12">
-      <div class="hero-text">
-        <p class="label rise" style="--d:.05s">{a.label}</p>
-        <h1 class="about-title">{a.title}</h1>
-        <p class="lead rise" style="--d:.45s">{a.lead}</p>
-      </div>
-      <div class="hero-media"><Photo name="bert-and-aude" lang={lang} eager maxh="calc(100svh - var(--header-h) - 8rem)" sizes="(min-width: 900px) 40vw, 100vw" /></div>
-    </div>
-  </section>
-
-  <!-- Notre histoire : texte seul, en deux colonnes -->
-  <section class="section bg-2">
-    <div class="wrap g12 story">
-      <div class="story-intro">
-        <p class="label" data-reveal>{a.label}</p>
-        <p class="story-lead" data-reveal>{a.story[0]}</p>
-      </div>
-      <div class="story-rest">
-        {a.story.slice(1).map((p) => <p data-reveal>{p}</p>)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <!-- Bert puis Aude : photo et texte côte à côte, en alternance ; les deux textes ont la même largeur -->
-    <div class="wrap g12 split person">
-      <div class="split-media" style="--col:1 / span 5"><Photo name="bert-serving" lang={lang} maxh="var(--ph-max)" sizes="(min-width: 900px) 36vw, 100vw" /></div>
-      <div class="split-text" style="--col:7 / span 5">
-        <p class="label" data-reveal>Chef</p>
-        <h2 data-split>{a.bertTitle}</h2>
-        <p class="lead" data-reveal>{a.bert}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section bg-2">
-    <div class="wrap g12 split reverse person">
-      <div class="split-media" style="--col:6 / span 7"><Photo name="aude-with-guests" lang={lang} sizes="(min-width: 900px) 52vw, 100vw" /></div>
-      <div class="split-text" style="--col:1 / span 5">
-        <p class="label" data-reveal>{lang === 'nl' ? 'Gastvrouw' : lang === 'fr' ? 'Hôtesse' : 'Host'}</p>
-        <h2 data-split>{a.audeTitle}</h2>
-        <p class="lead" data-reveal>{a.aude}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap section">
-    <div class="section-head"><div><p class="label" data-reveal>{a.valuesLabel}</p><h2>BEAU MOMENTS</h2></div></div>
-    <ol class="pillars">
-      {a.values.map((v, i) => (
-        <li data-reveal style={`--d:${i * 0.1}s`}><span class="p-n">{String(i + 1).padStart(2, '0')}</span><h3>{v.title}</h3><p>{v.text}</p></li>
-      ))}
-    </ol>
-  </section>
+  section="about" breadcrumbs={[{ name: s.nav.about, path: pagePath('about', lang) }]} extraLd={ld} ogPhoto="bert-and-aude" enquiry={{ look: 'b', photo: 'serving-bubbles' }}>
+  <PageHero lang={lang} label={a.label} title="Bert & Aude" lead={a.lead} cover="chef-plating" photo="bert-and-aude" pos="50% 45%">
+    {a.story.slice(0, 2).map((p) => <p>{p}</p>)}
+  </PageHero>
+  <section class="pad"><div class="wrap split">
+    <Photo name="bert-serving" lang={lang} sizes="(min-width: 640px) 44vw, 92vw" /><div><h2>{a.bertTitle}</h2><p>{a.bert}</p></div>
+  </div></section>
+  <section class="pad stone"><div class="wrap split flip">
+    <Photo name="aude-with-guests" lang={lang} sizes="(min-width: 640px) 44vw, 92vw" /><div><h2>{a.audeTitle}</h2><p>{a.aude}</p></div>
+  </div></section>
 </Base>

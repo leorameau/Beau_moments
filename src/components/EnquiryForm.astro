@@ -31,7 +31,7 @@ const f = t(lang).form;
   <div class="field full"><label for="f-msg">{f.message}</label><textarea id="f-msg" name="message" rows="3"></textarea></div>
   <label class="consent"><input type="checkbox" name="consent" required /> <span>{f.consent} <a class="consent-link" href={pagePath('privacy', lang)}>{privacyPolicy[lang].title}</a></span></label>
   <div class="form-foot">
-    <button class="btn btn-solid" type="submit">{f.send}</button>
+    <button class="btn fill" type="submit">{f.send}</button>
     <p class="form-status" role="status" aria-live="polite"></p>
   </div>
 </form>

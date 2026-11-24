@@ -2,35 +2,31 @@
 // Pages légales : mentions légales et politique de confidentialité (texte simple, sans bandeau final).
 import Base from '../layouts/Base.astro';
 import { legalNotice, privacyPolicy, updated } from '../lib/legal';
-import { pagePath, allLangs } from '../i18n/routes';
+import { pagePath, anchorId, allLangs } from '../i18n/routes';
 import { L as Lx, type Lang } from '../i18n/locales';
-interface Props { lang: Lang; kind: 'legal' | 'privacy' }
-const { lang, kind } = Astro.props;
-const doc = (kind === 'legal' ? legalNotice : privacyPolicy)[lang];
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const docs = [{ ...legalNotice[lang], id: undefined }, { ...privacyPolicy[lang], id: anchorId('privacy', lang) }];
 const L = Lx(lang);
-const desc = kind === 'legal'
-  ? L('Juridische informatie over BEAU MOMENTS VOF, Maldegem: ondernemingsnummer, btw-nummer, contact en hosting.', 'Mentions légales de BEAU MOMENTS SNC, Maldegem : numéro d’entreprise, TVA, contact et hébergement.', 'Legal notice for BEAU MOMENTS, Maldegem: enterprise number, VAT number, contact details and hosting.')
-  : L('Hoe BEAU MOMENTS je persoonsgegevens verwerkt en beschermt (AVG/GDPR): welke gegevens, waarom, hoe lang en je rechten.', 'Comment BEAU MOMENTS traite et protège vos données personnelles (RGPD) : données, finalités, conservation et vos droits.', 'How BEAU MOMENTS processes and protects your personal data (GDPR): what data, why, how long, and your rights.');
+const desc = L('Juridische informatie en privacybeleid van BEAU MOMENTS VOF, Maldegem: ondernemingsgegevens, hosting, verwerking van persoonsgegevens en je rechten.', 'Mentions légales et politique de confidentialité de BEAU MOMENTS, Maldegem : entreprise, hébergement, données personnelles et vos droits.', 'Legal notice and privacy policy of BEAU MOMENTS, Maldegem: company details, hosting, personal data and your rights.');
 ---
-<Base lang={lang} title={`${doc.title} — BEAU MOMENTS`} description={desc} alternates={allLangs((l) => pagePath(kind, l))}
-  breadcrumbs={[{ name: doc.title, path: pagePath(kind, lang) }]} hideCta>
-  <section class="page-head">
-    <div class="wrap g12">
-      <div class="page-head-title">
-        <p class="label">{doc.label}</p>
-        <h1 class="legal-title">{doc.title}</h1>
-      </div>
-      <div class="page-head-lead"><p class="lead">{doc.intro}</p></div>
-    </div>
-  </section>
-  <section class="wrap section legal" style="padding-top:0">
-    {doc.blocks.map((b) => (
-      <div class="legal-block">
-        <h2>{b.h}</h2>
-        <div>
-          {b.p?.map((t) => <p>{t}</p>)}
-          {b.list && <ul>{b.list.map((t) => <li>{t}</li>)}</ul>}
-        </div>
+<Base lang={lang} title={`${docs[0].title} — BEAU MOMENTS`} description={desc} alternates={allLangs((l) => pagePath('legal', l))}
+  breadcrumbs={[{ name: docs[0].title, path: pagePath('legal', lang) }]}>
+  <section class="phead"><div class="wrap"><h1>{docs[0].title}</h1></div></section>
+  <section class="wrap pad legal">
+    {docs.map((doc, n) => (
+      <div id={doc.id} class="legal-doc">
+        {n > 0 && <h2 class="legal-title">{doc.title}</h2>}
+        <p class="lead">{doc.intro}</p>
+        {doc.blocks.map((b) => (
+          <div class="legal-block">
+            {n > 0 ? <h3>{b.h}</h3> : <h2>{b.h}</h2>}
+            <div>
+              {b.p?.map((t) => <p>{t}</p>)}
+              {b.list && <ul>{b.list.map((t) => <li>{t}</li>)}</ul>}
+            </div>
+          </div>
+        ))}
       </div>
     ))}
     <p class="legal-updated">{L('Laatst bijgewerkt', 'Dernière mise à jour', 'Last updated')}: {updated[lang]}</p>

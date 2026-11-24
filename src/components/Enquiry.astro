@@ -1,0 +1,29 @@
+---
+// Bloc « Vertel ons over je moment », sur toutes les pages, en quatre présentations :
+//  a : texte et photo à gauche, formulaire sur carte   b : formulaire à gauche, texte et photo à droite
+//  c : carte posée sur une photo pleine largeur        d : centré sous le monogramme, formulaire large
+import Photo from './Photo.astro';
+import Logo from './Logo.astro';
+import EnquiryForm from './EnquiryForm.astro';
+import type { PhotoKey } from '../lib/photos';
+import { site, tel, mailHref } from '../lib/site';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/locales';
+export interface Look { look: 'a' | 'b' | 'c' | 'd'; photo?: PhotoKey; preset?: number }
+interface Props extends Look { lang: Lang }
+const { lang, look, photo, preset } = Astro.props;
+const c = t(lang).catering;
+---
+<section class={`enq enq-${look}`} id="aanvraag">
+  {look === 'c' && photo && <Photo name={photo} lang={lang} class="cover" sizes="100vw" />}
+  <div class="wrap"><div class="enq-in">
+    <div class="enq-text">
+      {look === 'd' && <Logo />}
+      <h2>{c.formTitle}</h2>
+      <p>{c.formText}</p>
+      {look !== 'd' && <p class="contacts"><a href={site.mapUrl} target="_blank" rel="noopener">{site.address.street}, {site.address.postalCode} {site.address.city}</a>{site.contacts.map((x) => <a href={tel(x.phone)}>{x.name} {x.phone}</a>)}<a href={mailHref}>{site.email}</a></p>}
+    </div>
+    {(look === 'a' || look === 'b') && photo && <Photo name={photo} lang={lang} class="enq-photo" sizes="(min-width: 1300px) 380px, 30vw" />}
+    <div class="sheet"><EnquiryForm lang={lang} preset={preset} /></div>
+  </div></div>
+</section>
