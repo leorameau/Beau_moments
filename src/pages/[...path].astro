@@ -9,6 +9,7 @@ import Takeaway from '../views/Takeaway.astro';
 import Gallery from '../views/Gallery.astro';
 import About from '../views/About.astro';
 import Legal from '../views/Legal.astro';
+import Quote from '../views/Quote.astro';
 import { langs } from '../i18n/locales';
 import { pages, type PageKey } from '../i18n/routes';
 
@@ -32,3 +33,4 @@ const { view, lang } = Astro.props as any;
 {view === 'gallery' && <Gallery lang={lang} />}
 {view === 'about' && <About lang={lang} />}
 {view === 'legal' && <Legal lang={lang} />}
+{view === 'quote' && <Quote lang={lang} />}

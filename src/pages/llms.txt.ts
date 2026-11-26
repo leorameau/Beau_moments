@@ -26,7 +26,7 @@ export const GET: APIRoute = () => {
     `- Phone: ${site.contacts.map((c) => `${c.name} ${c.phone}`).join(', ')}`,
     `- Email: ${site.email}`,
     `- Instagram: [@${ig.handle}](${ig.url})`,
-    `- Enquiries: [enquiry form](${abs(pagePath('catering', 'en'))}#aanvraag)`,
+    `- Enquiries: [enquiry form](${abs(pagePath('quote', 'en'))})`,
     '- Takeaway: a new menu every week; order by phone only, until Thursday; collect on Friday at the atelier',
     `- ${feest.en.label}: ${feest.en.prices.map((p) => `${p.name.replace(' *', '')} ${p.price}`).join(', ')}; ${feest.en.deadline} Order by email: ${site.takeawayEmail}`,
     `- Languages: ${langs.map((l) => `${localeInfo[l].name} (${abs(pagePath('home', l))})`).join(', ')}`,

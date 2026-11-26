@@ -6,7 +6,7 @@ import '../styles/global.css';
 import cormorant from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
 import jost from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
 import Logo from '../components/Logo.astro';
-import Enquiry, { type Look } from '../components/Enquiry.astro';
+import EnquiryBand, { type BandTone, type BandPage } from '../components/EnquiryBand.astro';
 import { getImage } from 'astro:assets';
 import { site, abs, tel, mailHref } from '../lib/site';
 import { getPhoto, type PhotoKey } from '../lib/photos';
@@ -30,7 +30,8 @@ interface Props {
   /** Fil d'Ariane (l'accueil est ajouté automatiquement) */
   breadcrumbs?: { name: string; path: string }[];
   /** Présentation du bloc « aanvraag » en bas de page (absent : pas de bloc) */
-  enquiry?: Look;
+  /** Bandeau « Vertel ons over je moment » en bas de page ; preset présélectionne le type d'event sur la page « Plan je moment » */
+  enquiry?: { page: BandPage; photo?: PhotoKey; tone: BandTone; side?: 'left' | 'right'; cta?: 'button' | 'line'; preset?: number };
   /** Section active du menu */
   section?: 'catering' | 'atelier' | 'takeaway' | 'gallery' | 'about';
 }
@@ -128,7 +129,7 @@ const menu = [
   { key: 'gallery', href: pagePath('gallery', lang), label: s.nav.gallery },
 ];
 const nav = [...menu, { key: 'takeaway', href: pagePath('takeaway', lang), label: s.nav.takeaway }];
-const enquire = enquiry ? '#aanvraag' : `${pagePath('catering', lang)}#aanvraag`;
+const enquire = pagePath('quote', lang);
 const year = new Date().getFullYear();
 ---
 <!doctype html>
@@ -182,7 +183,7 @@ const year = new Date().getFullYear();
         </div>
         <a class="brand" href={pagePath('home', lang)} aria-label={`BEAU MOMENTS — ${s.nav.home}`}>Beau Moments<small aria-hidden="true">Catering &amp; private dining</small></a>
         <div class="top-right">
-          <a class="btn fill top-cta" href={enquire}>{s.home.ctaPrimary}</a>
+          <a class="btn fill top-cta" href={enquire}><span class="cta-long">{s.home.ctaPrimary}</span><span class="cta-short" aria-hidden="true">{s.nav.bookShort}</span></a>
         </div>
       </div>
       <nav class="top-nav" aria-label={s.nav.main}>
@@ -191,24 +192,32 @@ const year = new Date().getFullYear();
     </header>
 
     <dialog class="menu" aria-label={s.nav.main} data-menu>
-      <button class="menu-close" type="button" data-menu-close>{s.nav.close}</button>
-      <nav aria-label={s.nav.main}>
+      <div class="menu-top">
+        <button class="menu-close" type="button" aria-label={s.nav.close} data-menu-close><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></button>
+        <a class="menu-brand" href={pagePath('home', lang)} aria-label={`BEAU MOMENTS — ${s.nav.home}`}><Logo /></a>
+      </div>
+      <nav class="menu-nav" aria-label={s.nav.main}>
         <ul role="list">
-          {menu.map((l) => (
-            <li><a href={l.href} aria-current={section === l.key ? 'page' : undefined}>{l.label}</a>
-              {l.key === 'catering' && <p class="sub">{eventTypes.map((e) => <a href={eventPath(e.key, lang)}>{e.copy[lang].name}</a>)}</p>}</li>
+          {nav.map((l) => (
+            <li><a href={l.href} aria-current={section === l.key ? 'page' : undefined}>{l.label}<span aria-hidden="true">→</span></a></li>
           ))}
         </ul>
       </nav>
-      <div>
-      <nav class="lang" aria-label={s.nav.language}>{langs.map((l) => <a href={alts[l]} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{localeInfo[l].name}</a>)}</nav>
-      <p class="menu-foot"><a href={enquire}>{s.home.ctaPrimary}</a><a href={pagePath('takeaway', lang)}>{s.nav.takeaway}</a><a href={tel(site.phone)}>{site.phone}</a><a href={ig.url} target="_blank" rel="noopener">@{ig.handle}</a></p>
+      <a class="btn fill menu-cta" href={enquire}>{s.home.ctaPrimary}</a>
+      <div class="menu-contact">
+        <p class="menu-label">{s.footer.contact}</p>
+        <ul role="list">
+          {site.contacts.map((x) => <li><a href={tel(x.phone)}>{x.name} · {x.phone}</a></li>)}
+          <li><a href={mailHref}>{site.email}</a></li>
+          <li><a href={ig.url} target="_blank" rel="noopener">@{ig.handle}</a></li>
+        </ul>
       </div>
+      <nav class="lang menu-lang" aria-label={s.nav.language}>{langs.map((l) => <a href={alts[l]} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{localeInfo[l].name}</a>)}</nav>
     </dialog>
 
     <main id="main"><slot /></main>
 
-    {enquiry && <Enquiry lang={lang} {...enquiry} />}
+    {enquiry && <EnquiryBand lang={lang} {...enquiry} />}
 
     <footer class="foot">
       <div class="wrap foot-grid">

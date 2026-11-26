@@ -30,7 +30,7 @@ const ld = [{
 }];
 ---
 <Base lang={lang} title={s.meta.takeawayTitle} description={s.meta.takeawayDesc} alternates={allLangs((l) => pagePath('takeaway', l))}
-  section="takeaway" breadcrumbs={[{ name: s.nav.takeaway, path: pagePath('takeaway', lang) }]} extraLd={ld} ogPhoto="feest-cover" enquiry={{ look: 'a', photo: 'flower-bites', preset: 5 }}>
+  section="takeaway" breadcrumbs={[{ name: s.nav.takeaway, path: pagePath('takeaway', lang) }]} extraLd={ld} ogPhoto="feest-cover" enquiry={{ page: 'takeaway', cta: 'line', photo: 'egg-shrimp-tray', tone: 'olive', side: 'right', preset: 5 }}>
   <PageHero lang={lang} label={k.label} title={k.title} lead={k.lead} cover="table-lemons" photo="egg-shrimp-garden" pos="50% 40%">
     <a class="btn fill" href={telHref}>{k.call} {site.phone}</a>
   </PageHero>
@@ -59,7 +59,7 @@ const ld = [{
   <section class="pad">
     <div class="wrap"><h2 class="head">{k.howTitle}</h2>
       <ol class="steps" role="list">{k.how.map((p, i) => <li><span class="num">{i + 1}</span><h3>{p.title}</h3><p>{p.text}</p></li>)}</ol>
-      <p class="acts"><a class="btn" href={telHref}>{site.phone}</a><a class="btn ghost" href={ig.url} target="_blank" rel="noopener">{k.follow}</a></p>
+      <p class="acts"><a class="line-link" href={telHref}>{site.phone}</a><a class="line-link" href={ig.url} target="_blank" rel="noopener">{k.follow}</a></p>
     </div>
   </section>
 </Base>

@@ -38,7 +38,7 @@ const half = '(min-width: 640px) 46vw, 92vw';
 // Trois avis Google, sans celui qui contient un emoji
 const shownReviews = reviews.filter((r) => !/\p{Extended_Pictographic}/u.test(r.quote.nl)).slice(0, 3);
 ---
-<Base lang={lang} title={s.meta.homeTitle} description={s.meta.homeDesc} alternates={allLangs((l) => pagePath('home', l))} ogPhoto="table-room" enquiry={{ look: 'b' }}>
+<Base lang={lang} title={s.meta.homeTitle} description={s.meta.homeDesc} alternates={allLangs((l) => pagePath('home', l))} ogPhoto="table-room" enquiry={{ page: 'home', cta: 'line', photo: 'dinner-served', tone: 'terracotta', side: 'left' }}>
   <section class="hero hero-home">
     <div class="panels">
       {panels.map((col, c) => (
@@ -54,7 +54,7 @@ const shownReviews = reviews.filter((r) => !/\p{Extended_Pictographic}/u.test(r.
     <p class="lede line head">{nbsp(h.heroLead)}</p>
     <div class="split">
       <Photo name="bert-and-aude" lang={lang} sizes={half} />
-      <div><h2>{s.nav.about}</h2><p>{h.aboutText}</p><p class="acts"><a class="btn" href={pagePath('about', lang)}>{h.aboutMore}</a></p></div>
+      <div><h2>{s.nav.about}</h2><p>{h.aboutText}</p><p class="acts"><a class="line-link" href={pagePath('about', lang)}>{h.aboutMore}</a></p></div>
     </div>
   </section>
 
@@ -68,14 +68,14 @@ const shownReviews = reviews.filter((r) => !/\p{Extended_Pictographic}/u.test(r.
       <h2>{s.nav.catering}</h2>
       <p>{L('Catering, private dining en events, met klassieke Franse keuken.', 'Traiteur, private dining et événements, en cuisine française classique.', 'Catering, private dining and events, with classic French cooking.')}</p>
       <ul class="offer-list" role="list">{offers.map((o) => <li><a href={o.href}>{o.name}<span aria-hidden="true">→</span></a></li>)}</ul>
-      <p class="acts"><a class="btn" href={pagePath('catering', lang)}>{L('Ontdek ons aanbod', 'Voir nos services', 'See what we do')}</a></p>
+      <p class="acts"><a class="line-link" href={pagePath('catering', lang)}>{L('Ontdek ons aanbod', 'Voir nos services', 'See what we do')}</a></p>
     </div>
   </div></section>
 
   <!-- Atelier -->
   <section class="pad wrap"><div class="split">
     <Photo name="atelier-facade" lang={lang} sizes={half} />
-    <div><h2>{s.nav.atelier}</h2><p>{h.atelierText}</p><p class="acts"><a class="btn" href={pagePath('atelier', lang)}>{L('Ontdek het atelier', 'Découvrir l’atelier', 'Discover the atelier')}</a></p></div>
+    <div><h2>{s.nav.atelier}</h2><p>{h.atelierText}</p><p class="acts"><a class="line-link" href={pagePath('atelier', lang)}>{L('Ontdek het atelier', 'Découvrir l’atelier', 'Discover the atelier')}</a></p></div>
   </div></section>
 
   <!-- Galerij -->
@@ -86,7 +86,7 @@ const shownReviews = reviews.filter((r) => !/\p{Extended_Pictographic}/u.test(r.
         <div class="two-up">{gallery.slice(q, q + 2).map((k) => <div style={`flex:${(getPhoto(k).src.width / getPhoto(k).src.height).toFixed(4)} 1 0`}><Photo name={k} lang={lang} zoom sizes="(min-width: 640px) 32vw, 60vw" /></div>)}</div>
       ))}</div>
     ))}</div>
-    <p class="acts"><a class="btn" href={pagePath('gallery', lang)}>{h.galleryAll}</a></p>
+    <p class="acts"><a class="line-link" href={pagePath('gallery', lang)}>{h.galleryAll}</a></p>
   </div></section>
 
   <!-- Afhaal -->
@@ -97,12 +97,30 @@ const shownReviews = reviews.filter((r) => !/\p{Extended_Pictographic}/u.test(r.
 
   <section class="pad stone guests"><div class="wrap">
     <div class="head"><h2>{h.reviewsTitle}</h2><p>{googleRating.score.toLocaleString(localeInfo[lang].html)} / 5 · {h.googleCount.replace('{n}', String(googleRating.count))}</p></div>
-    <ul role="list">
+    <ul role="list" data-carousel>
       {shownReviews.map((r) => (
         <li><h3>{r.author}</h3><span class="stars" role="img" aria-label={`${r.stars}/5`}>{'★'.repeat(r.stars)}{'☆'.repeat(5 - r.stars)}</span><p>{r.quote[lang]}</p></li>
       ))}
     </ul>
-    <a class="btn" href={googleReviewsUrl} target="_blank" rel="noopener">{h.reviewsAll}</a>
+    <p class="dots" aria-hidden="true" data-dots>{shownReviews.map((_, i) => <button type="button" tabindex="-1" aria-label={`${i + 1} / ${shownReviews.length}`} aria-current={i === 0 ? 'true' : undefined}></button>)}</p>
+    <a class="line-link" href={googleReviewsUrl} target="_blank" rel="noopener">{h.reviewsAll}</a>
   </div></section>
 
 </Base>
+
+<script>
+  // Reviews : sur téléphone, les points suivent le carrousel et permettent d'y naviguer
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((list) => {
+    const dots = [...(list.parentElement?.querySelectorAll<HTMLButtonElement>('[data-dots] button') ?? [])];
+    const items = [...list.children] as HTMLElement[];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.intersectionRatio < 0.6) return;
+        const i = items.indexOf(e.target as HTMLElement);
+        dots.forEach((d, j) => (j === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+      });
+    }, { root: list, threshold: 0.6 });
+    items.forEach((it) => io.observe(it));
+    dots.forEach((d, i) => d.addEventListener('click', () => list.scrollTo({ left: items[i].offsetLeft - list.offsetLeft, behavior: 'smooth' })));
+  });
+</script>

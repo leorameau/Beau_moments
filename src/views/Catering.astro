@@ -40,17 +40,17 @@ const ld = [
 const inclPhotos: PhotoKey[] = ['langoustine-ceviche', 'scallops', 'waiter-tray', 'table-lemons', 'flowers', 'table-flowers'];
 ---
 <Base lang={lang} title={s.meta.cateringTitle} description={s.meta.cateringDesc} alternates={allLangs((l) => pagePath('catering', l))}
-  section="catering" breadcrumbs={[{ name: s.nav.catering, path: pagePath('catering', lang) }]} extraLd={ld} ogPhoto="table-long" enquiry={{ look: 'a', photo: 'table-candles' }}>
+  section="catering" breadcrumbs={[{ name: s.nav.catering, path: pagePath('catering', lang) }]} extraLd={ld} ogPhoto="table-long" enquiry={{ page: 'catering', cta: 'line', photo: 'amuse-spoons', tone: 'olive', side: 'left' }}>
   <PageHero lang={lang} label={s.nav.catering} title={L('Catering, private dining & events', 'Traiteur, private dining & événements', 'Catering, private dining & events')} lead={c.lead} cover="dinner-served" photo="plating-sauce">
-    <a class="btn fill" href="#aanvraag">{c.cta}</a>
+    <a class="btn fill" href={pagePath('quote', lang)}>{c.cta}</a>
   </PageHero>
   <section class="pad wrap"><h2 class="head">{c.typesTitle}</h2><Formulas lang={lang} /></section>
   <section class="pad stone"><div class="wrap">
     <h2 class="head">{c.includedTitle}</h2>
-    <ul class="grid" role="list" style="--n:3">{c.included.map((it, i) => <li><Photo name={inclPhotos[i]} lang={lang} ratio="1" sizes="(min-width: 1300px) 390px, (min-width: 800px) 30vw, 46vw" /><h3>{it.title}</h3><p>{it.text}</p></li>)}</ul>
+    <ul class="grid" role="list" style="--n:3">{c.included.map((it, i) => <li><Photo name={inclPhotos[i]} lang={lang} ratio="1" sizes="(min-width: 1300px) 390px, (min-width: 800px) 30vw, 46vw" /><h3>{it.title}</h3></li>)}</ul>
   </div></section>
   <section class="pad wrap">
-    <div class="head"><h2>{s.home.dishesTitle}</h2><p class="under">{s.home.dishesLead}</p></div>
+    <h2 class="head">{s.home.dishesTitle}</h2>
     <ul class="grid" role="list">{dishes.slice(0, 4).map((d) => <li><Photo name={d.photo} lang={lang} ratio="1" sizes="(min-width: 1300px) 285px, (min-width: 720px) 23vw, 46vw" /><h3>{d.name[lang]}</h3><p class="one">{d.notes[lang]}</p></li>)}</ul>
   </section>
   <section class="pad wrap duo"><h2>{s.catering.faqTitle}</h2><Faq items={c.faq} /></section>
