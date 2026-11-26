@@ -51,7 +51,7 @@ const ld = [{
         <ul role="list">{f.order.map((o) => <li>{o}</li>)}</ul>
         <h3>{f.pickupTitle}</h3>
         <ul role="list">{f.pickup.map((o) => <li>{o}</li>)}</ul>
-        <p class="acts"><a class="btn fill" href={`mailto:${site.takeawayEmail}`}>{f.orderCta}</a></p>
+        <p class="acts"><a class="line-link" href={`mailto:${site.takeawayEmail}`}>{f.orderCta}</a></p>
         <p class="small">{f.allergens}</p>
       </div>
     </div>

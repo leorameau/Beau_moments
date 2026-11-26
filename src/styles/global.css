@@ -86,7 +86,10 @@ body:has(main > .hero:first-child) .top { position: absolute; inset: 0 0 auto; c
 .menu-contact { margin-top: auto; padding-top: 1.5rem; }
 .menu-label { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); margin: 0 0 0.4rem; }
 .menu-contact a { display: inline-block; padding: 0.35rem 0; }
-.menu-lang { margin: 1.25rem 0 0; padding-top: 0.6rem; border-top: 1px solid var(--line); } .menu-lang a:first-child { padding-left: 0; }
+/* Langues dans la barre du haut du menu : toujours visibles, même sur un écran court */
+.menu-lang { justify-self: end; margin: 0 -0.45rem 0 0; font-size: 0.85rem; letter-spacing: 0.06em; } .menu-lang a { padding: 0.7rem 0.45rem; }
+/* Écrans courts (téléphone avec les barres du navigateur) : menu plus compact */
+@media (max-height: 760px) { .menu-top { padding: 0.5rem 0; } .menu-brand .logo { width: 2.6rem; height: 2.6rem; } .menu-nav { margin-top: 0.25rem; } .menu-nav a { padding: 0.55rem 0; font-size: 1.45rem; } .menu-cta.btn { margin-top: 1.25rem; } .menu-contact { padding-top: 1rem; } .menu-contact a { padding: 0.25rem 0; } }
 .menu-contact a:hover, .foot a:hover, .contacts a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
 
 /* Ouvertures */
@@ -95,14 +98,14 @@ body:has(main > .hero:first-child) .top { position: absolute; inset: 0 0 auto; c
 .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(46rem 16rem at 50% 58%, #4a30279e, transparent), linear-gradient(#4a3027bf, #4a302752 11rem, #4a302738); }
 .hero h1 { font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.6rem); max-width: 18em; text-shadow: 0 0 1.5rem #4a302780; }
 .hero .eyebrow { margin-bottom: 0.75rem; font-size: 1rem; } .eyebrow a { text-decoration: underline; text-underline-offset: 0.3em; }
-.hero-home { min-height: max(34rem, 100svh); align-content: end; padding-bottom: clamp(2rem, 5svh, 3.5rem); --pos: 50% 62%; }
+.hero-home { min-height: 100vh; min-height: max(20rem, 100svh); align-content: end; padding-bottom: clamp(2rem, 5svh, 3.5rem); --pos: 50% 62%; }
 .hero-home::after { background: radial-gradient(16rem 12rem at 50% 100%, #4a3027b3, transparent), linear-gradient(#4a3027bf, #4a302733 12rem, #4a302714 60%, #4a302766); }
 .hero-home .logo { width: clamp(3.5rem, 5.5vw, 4.75rem); } .hero .btn:not(.fill):hover { background: var(--pale) !important; border-color: var(--pale) !important; color: var(--dark) !important; }
 
 /* Texte + photo : la photo garde son format, le texte prend le reste */
 .split { display: flex; align-items: center; gap: clamp(1.5rem, 5vw, 4.5rem); }
 .split > .ph { flex: none; width: min(44%, 30rem * var(--ar)); } .split > div { flex: 1; min-width: 0; } .split.flip > .ph { order: 2; }
-.split h2 { margin-bottom: 0.9rem; } .split h3 { margin: 1.4rem 0 0.35rem; } .split p { max-width: 38rem; } .split p + p { margin-top: 0.8rem; } .split > div > .btn { margin-top: 1.75rem; } .split p.acts { margin-top: 1.5rem; }
+.split h2 { margin-bottom: 0.9rem; } .split h3 { margin: 1.4rem 0 0.35rem; } .split p { max-width: 38rem; } .split p + p { margin-top: 0.8rem; } .split > div > .btn, .split > div > .line-link { margin-top: 1.75rem; } .split p.acts { margin-top: 1.5rem; }
 .lede { font-family: var(--serif); font-size: clamp(1.3rem, 1.15rem + 0.7vw, 1.7rem); line-height: 1.38; max-width: 40em; text-wrap: balance; } .between .lede { margin-top: 0.6rem; }
 .para { max-width: 42rem; margin-bottom: 0.9rem; }
 @media (max-width: 639px) { .split { flex-direction: column; align-items: stretch; } .split > .ph { width: 100%; } .split.flip > .ph { order: 0; } }
@@ -190,7 +193,7 @@ ul.prices { margin: 1.25rem 0; } .prices li { display: flex; justify-content: sp
 .slide:first-child { opacity: 1; animation: none; }
 @keyframes slide { 0% { opacity: 0; } 8% { opacity: 1; } 33% { opacity: 1; } 41%, 100% { opacity: 0; } }
 @media (max-aspect-ratio: 17/10) { .panel:nth-child(2) { display: none; } }
-@media (max-aspect-ratio: 1/1) { .panel:nth-child(3) { display: none; } .hero-home { min-height: min(100svh, 165vw); } }
+@media (max-aspect-ratio: 1/1) { .panel:nth-child(3) { display: none; } }
 .hero-home .logo { background: #4a302766; border-radius: 50%; }
 .sub-title { margin: clamp(2.5rem, 5vw, 4rem) 0 1.5rem; font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.95rem); }
 h4 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.12rem + 0.3vw, 1.4rem); line-height: 1.25; margin: 0; } .grid h4 { margin-top: 0.9rem; }
