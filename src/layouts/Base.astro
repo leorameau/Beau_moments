@@ -195,6 +195,7 @@ const year = new Date().getFullYear();
       <div class="menu-top">
         <button class="menu-close" type="button" aria-label={s.nav.close} data-menu-close><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></button>
         <a class="menu-brand" href={pagePath('home', lang)} aria-label={`BEAU MOMENTS — ${s.nav.home}`}><Logo /></a>
+        <nav class="lang menu-lang" aria-label={s.nav.language}>{langs.map((l) => <a href={alts[l]} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} title={localeInfo[l].name}>{localeInfo[l].short}</a>)}</nav>
       </div>
       <nav class="menu-nav" aria-label={s.nav.main}>
         <ul role="list">
@@ -212,7 +213,6 @@ const year = new Date().getFullYear();
           <li><a href={ig.url} target="_blank" rel="noopener">@{ig.handle}</a></li>
         </ul>
       </div>
-      <nav class="lang menu-lang" aria-label={s.nav.language}>{langs.map((l) => <a href={alts[l]} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{localeInfo[l].name}</a>)}</nav>
     </dialog>
 
     <main id="main"><slot /></main>
