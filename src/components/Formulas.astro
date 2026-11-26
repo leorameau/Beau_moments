@@ -17,10 +17,10 @@ const extra = [
 ];
 ---
 <ul class="grid" style="--n:3" role="list">
-  {eventTypes.map((e) => (
+  {eventTypes.map((e, i) => (
     <li id={eventSlugs[e.key][lang]}>
       <Photo name={e.hero} lang={lang} ratio="1" sizes={sizes} />
-      <h3><a class="cover-link" href="#aanvraag">{e.copy[lang].name}</a></h3>
+      <h3><a class="cover-link" href={`${pagePath('quote', lang)}?type=${i}`}>{e.copy[lang].name}</a></h3>
       <p>{nbsp(e.copy[lang].lead)}</p>
     </li>
   ))}

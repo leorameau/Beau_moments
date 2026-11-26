@@ -15,9 +15,9 @@ const a = s.atelier;
 const ld = [{ '@type': 'FAQPage', mainEntity: a.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }];
 ---
 <Base lang={lang} title={s.meta.atelierTitle} description={s.meta.atelierDesc} alternates={allLangs((l) => pagePath('atelier', l))}
-  section="atelier" breadcrumbs={[{ name: s.nav.atelier, path: pagePath('atelier', lang) }]} extraLd={ld} ogPhoto="atelier-dinner-from-above" enquiry={{ look: 'd', photo: 'atelier-facade', preset: 4 }}>
+  section="atelier" breadcrumbs={[{ name: s.nav.atelier, path: pagePath('atelier', lang) }]} extraLd={ld} ogPhoto="atelier-dinner-from-above" enquiry={{ page: 'atelier', cta: 'line', photo: 'private-dining-bowls', tone: 'terracotta', side: 'right', preset: 4 }}>
   <PageHero lang={lang} label={s.nav.atelier} title={a.title} lead={a.lead} cover="atelier-dinner-from-above" photo="atelier-from-above">
-    <a class="btn fill" href="#aanvraag">{s.catering.cta}</a>
+    <a class="btn fill" href={`${pagePath('quote', lang)}?type=4`}>{s.catering.cta}</a>
   </PageHero>
   <section class="pad stone"><div class="wrap">
   <div class="duo">

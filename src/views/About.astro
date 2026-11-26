@@ -22,9 +22,9 @@ const ld = [{
 }];
 ---
 <Base lang={lang} title={s.meta.aboutTitle} description={s.meta.aboutDesc} alternates={allLangs((l) => pagePath('about', l))}
-  section="about" breadcrumbs={[{ name: s.nav.about, path: pagePath('about', lang) }]} extraLd={ld} ogPhoto="bert-and-aude" enquiry={{ look: 'b', photo: 'serving-bubbles' }}>
+  section="about" breadcrumbs={[{ name: s.nav.about, path: pagePath('about', lang) }]} extraLd={ld} ogPhoto="bert-and-aude" enquiry={{ page: 'about', cta: 'button', tone: 'burgundy' }}>
   <PageHero lang={lang} label={a.label} title="Bert & Aude" lead={a.lead} cover="chef-plating" photo="bert-and-aude" pos="50% 45%">
-    {a.story.slice(0, 2).map((p) => <p>{p}</p>)}
+    <p>{a.story[0]}</p>
   </PageHero>
   <section class="pad"><div class="wrap split">
     <Photo name="bert-serving" lang={lang} sizes="(min-width: 640px) 44vw, 92vw" /><div><h2>{a.bertTitle}</h2><p>{a.bert}</p></div>

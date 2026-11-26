@@ -5,7 +5,7 @@ import type { Lang } from './locales';
 const nl = {
   nav: {
     home: 'Home', catering: 'Ons aanbod', atelier: 'Atelier', takeaway: 'Afhaal', gallery: 'Galerij', about: 'Over ons',
-    book: 'Aanvraag', menu: 'Menu', close: 'Sluiten', skip: 'Naar de inhoud', language: 'Taal', main: 'Hoofdmenu',
+    bookShort: 'Boek', menu: 'Menu', close: 'Sluiten', skip: 'Naar de inhoud', language: 'Taal', main: 'Hoofdmenu',
   },
   meta: {
     homeTitle: 'BEAU MOMENTS — catering & private dining in Maldegem',
@@ -20,6 +20,8 @@ const nl = {
     galleryDesc: 'De foto’s van @beau_moments_catering: gerechten van chef Bert, gedekte tafels, het atelier in Maldegem en de mooiste momenten.',
     aboutTitle: 'Over ons — Bert & Aude | BEAU MOMENTS',
     aboutDesc: 'Bert en Aude leerden elkaar kennen in een restaurantkeuken. Samen startten ze BEAU MOMENTS: catering en private dining met passie op het bord en service met een hart.',
+    quoteTitle: 'Plan je moment — BEAU MOMENTS',
+    quoteDesc: 'Vertel BEAU MOMENTS over je privé diner, feest, huwelijk of bedrijfsevent in Maldegem, Brugge, Gent en omstreken, en we plannen samen jouw moment.',
     notFoundTitle: 'Pagina niet gevonden — BEAU MOMENTS',
     notFoundDesc: 'Deze pagina bestaat niet (meer).',
   },
@@ -163,21 +165,22 @@ const nl = {
       'Bij BEAU MOMENTS geloven we dat eten meer is dan voeding: het is een ervaring, een herinnering.',
     ],
     bertTitle: 'Bert, de chef',
-    bert: 'Bert heeft zeven jaar ervaring als gepassioneerde kok en perfectioneert met trots de klassieke Franse keuken. Zijn passie bracht hem naar enkele gerenommeerde keukens. Zijn gerechten combineren traditie met een moderne toets, bereid met de beste ingrediënten en de grootste zorg.',
+    bert: 'Bert heeft zeven jaar ervaring als gepassioneerde kok en perfectioneert met trots de klassieke Franse keuken. Zijn gerechten combineren traditie met een moderne toets.',
     audeTitle: 'Aude, de stille kracht',
-    aude: 'Achter de schermen organiseert Aude alles: ze plant tot in de puntjes en zorgt dat elk detail klopt. In de zaal is ze er met een warme glimlach en een scherp oog voor wat gasten nodig hebben.',
-    valuesLabel: 'Waar we voor staan',
-    values: [
-      { title: 'Passie op het bord', text: 'Verfijnde gerechten die niet alleen lekker smaken, maar er ook als een pareltje uitzien.' },
-      { title: 'Service met een hart', text: 'Gastvrijheid zit in alles wat we doen: je voelt je welkom en kan zorgeloos genieten.' },
-      { title: 'Elk detail telt', text: 'Van de eerste hap tot de laatste indruk, en van de bloemen tot een opgeruimde keuken.' },
-    ],
+    aude: 'Aude plant alles tot in de puntjes. In de zaal is ze er met een warme glimlach en een scherp oog voor wat gasten nodig hebben.',
   },
-  cta: {
-    label: 'BEAU MOMENTS',
-    title: 'Laten we samen iets moois maken.',
-    text: 'Een mooi moment begint bij een goed gesprek. Aarzel niet om ons te contacteren voor je privé diner of event.',
-    button: 'Vraag een voorstel aan',
+  quote: {
+    title: 'Plan je moment',
+    lead: 'Vertel ons over je moment: de datum, het aantal gasten en wat je in gedachten hebt. We antwoorden snel met een voorstel op maat.',
+    button: 'Plan je moment',
+    bands: {
+      home: { title: 'Laten we samen iets moois maken.', line: 'Van een diner aan huis tot een groot feest: we denken graag met je mee.' },
+      about: { title: 'Leer ons kennen aan tafel.', line: 'Vertel ons wat je in gedachten hebt, wij doen de rest met plezier.' },
+      catering: { title: 'Welk moment vieren we samen?', line: 'Een verjaardag, een huwelijk of een bedrijfsfeest: elk menu stellen we op maat samen.' },
+      atelier: { title: 'Een avond in ons atelier.', line: 'Een eigen ruimte voor 8 tot 18 gasten, met een menu helemaal voor jullie.' },
+      gallery: { title: 'Zin in zo’n moment?', line: 'Wat je hier ziet, maken we graag ook voor jou.' },
+      takeaway: { title: 'Liever samen aan tafel?', line: 'Naast de afhaal koken we ook bij jou thuis of in ons atelier.' },
+    },
   },
   footer: {
     tagline: 'Catering & private dining door Bert & Aude. Passie op het bord, service met een hart.',
@@ -201,7 +204,7 @@ type UI = typeof nl;
 const fr: UI = {
   nav: {
     home: 'Accueil', catering: 'Nos services', atelier: 'Atelier', takeaway: 'À emporter', gallery: 'Galerie', about: 'À propos',
-    book: 'Demande', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', language: 'Langue', main: 'Menu principal',
+    bookShort: 'Réserver', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', language: 'Langue', main: 'Menu principal',
   },
   meta: {
     homeTitle: 'BEAU MOMENTS — traiteur & dîners privés à Maldegem',
@@ -216,6 +219,8 @@ const fr: UI = {
     galleryDesc: 'Les photos de @beau_moments_catering : les plats du chef Bert, des tables dressées, l’atelier à Maldegem et les plus beaux moments.',
     aboutTitle: 'À propos — Bert & Aude | BEAU MOMENTS',
     aboutDesc: 'Bert et Aude se sont rencontrés dans la cuisine d’un restaurant. Ensemble, ils ont créé BEAU MOMENTS : traiteur et dîners privés, avec passion dans l’assiette et un service de cœur.',
+    quoteTitle: 'Planifiez votre moment — BEAU MOMENTS',
+    quoteDesc: 'Parlez à BEAU MOMENTS de votre dîner privé, fête, mariage ou événement d’entreprise à Maldegem, Bruges, Gand et environs, et planifions ensemble votre moment.',
     notFoundTitle: 'Page introuvable — BEAU MOMENTS',
     notFoundDesc: 'Cette page n’existe pas (ou plus).',
   },
@@ -359,21 +364,22 @@ const fr: UI = {
       'Chez BEAU MOMENTS, nous croyons que manger est plus que se nourrir : c’est une expérience, un souvenir.',
     ],
     bertTitle: 'Bert, le chef',
-    bert: 'Bert a sept ans d’expérience comme cuisinier passionné et perfectionne avec fierté la cuisine française classique. Sa passion l’a mené dans plusieurs cuisines renommées. Ses plats allient tradition et touche moderne, avec les meilleurs ingrédients et le plus grand soin.',
+    bert: 'Bert a sept ans d’expérience comme cuisinier passionné et perfectionne avec fierté la cuisine française classique. Ses plats allient tradition et touche moderne.',
     audeTitle: 'Aude, la force tranquille',
-    aude: 'En coulisses, Aude organise tout : elle planifie au détail près et veille à ce que tout soit parfait. En salle, elle est là avec un sourire chaleureux et un œil attentif aux besoins des invités.',
-    valuesLabel: 'Nos valeurs',
-    values: [
-      { title: 'Passion dans l’assiette', text: 'Des plats raffinés, aussi bons que beaux.' },
-      { title: 'Service de cœur', text: 'L’hospitalité est dans tout ce que nous faisons : vous vous sentez bienvenu et profitez sans souci.' },
-      { title: 'Chaque détail compte', text: 'De la première bouchée à la dernière impression, des fleurs à la cuisine rangée.' },
-    ],
+    aude: 'Aude planifie tout au détail près. En salle, elle est là avec un sourire chaleureux et un œil attentif aux besoins des invités.',
   },
-  cta: {
-    label: 'BEAU MOMENTS',
-    title: 'Créons ensemble un beau moment.',
-    text: 'Un beau moment commence par une bonne conversation. N’hésitez pas à nous contacter pour votre dîner privé ou votre événement.',
-    button: 'Demander une proposition',
+  quote: {
+    title: 'Planifiez votre moment',
+    lead: 'Parlez-nous de votre moment : la date, le nombre d’invités et ce que vous imaginez. Nous revenons vite vers vous avec une proposition sur mesure.',
+    button: 'Planifiez votre moment',
+    bands: {
+      home: { title: 'Créons ensemble quelque chose de beau.', line: 'D’un dîner à la maison à une grande fête : nous serons ravis d’y réfléchir avec vous.' },
+      about: { title: 'Faisons connaissance à table.', line: 'Dites-nous ce que vous imaginez, nous nous occupons du reste avec plaisir.' },
+      catering: { title: 'Quel moment célébrons-nous ensemble ?', line: 'Un anniversaire, un mariage ou une fête d’entreprise : chaque menu est composé sur mesure.' },
+      atelier: { title: 'Une soirée dans notre atelier.', line: 'Un espace rien qu’à vous pour 8 à 18 invités, avec un menu pensé pour vous.' },
+      gallery: { title: 'Envie d’un tel moment ?', line: 'Ce que vous voyez ici, nous serons heureux de le créer pour vous.' },
+      takeaway: { title: 'Plutôt ensemble à table ?', line: 'En plus de l’emporter, nous cuisinons aussi chez vous ou dans notre atelier.' },
+    },
   },
   footer: {
     tagline: 'Traiteur & dîners privés par Bert & Aude. Passion dans l’assiette, service de cœur.',
@@ -395,7 +401,7 @@ const fr: UI = {
 const en: UI = {
   nav: {
     home: 'Home', catering: 'What we do', atelier: 'Atelier', takeaway: 'Takeaway', gallery: 'Gallery', about: 'About',
-    book: 'Enquire', menu: 'Menu', close: 'Close', skip: 'Skip to content', language: 'Language', main: 'Main menu',
+    bookShort: 'Book', menu: 'Menu', close: 'Close', skip: 'Skip to content', language: 'Language', main: 'Main menu',
   },
   meta: {
     homeTitle: 'BEAU MOMENTS — private chef & catering near Bruges, Belgium',
@@ -410,6 +416,8 @@ const en: UI = {
     galleryDesc: 'Photos from @beau_moments_catering: chef Bert’s dishes, laid tables, the atelier in Maldegem and our favourite moments.',
     aboutTitle: 'About — Bert & Aude | BEAU MOMENTS',
     aboutDesc: 'Bert and Aude met in a restaurant kitchen. Together they founded BEAU MOMENTS: catering and private dining with passion on the plate and service from the heart.',
+    quoteTitle: 'Plan your moment — BEAU MOMENTS',
+    quoteDesc: 'Tell BEAU MOMENTS about your private dinner, party, wedding or corporate event in Maldegem, Bruges, Ghent and the surrounding area, and we’ll plan your moment together.',
     notFoundTitle: 'Page not found — BEAU MOMENTS',
     notFoundDesc: 'This page does not exist (any more).',
   },
@@ -553,21 +561,22 @@ const en: UI = {
       'At BEAU MOMENTS we believe food is more than nourishment: it is an experience, a memory.',
     ],
     bertTitle: 'Bert, the chef',
-    bert: 'Bert has seven years of experience as a passionate cook and proudly perfects classic French cuisine. His passion has taken him through several renowned kitchens. His dishes combine tradition with a modern touch, made with the best ingredients and the greatest care.',
+    bert: 'Bert has seven years of experience as a passionate cook and proudly perfects classic French cuisine. His dishes combine tradition with a modern touch.',
     audeTitle: 'Aude, the quiet force',
-    aude: 'Behind the scenes Aude organises everything: she plans down to the last detail and makes sure everything is right. In the dining room she is there with a warm smile and a keen eye for what guests need.',
-    valuesLabel: 'What we stand for',
-    values: [
-      { title: 'Passion on the plate', text: 'Refined dishes that taste wonderful and look like little gems.' },
-      { title: 'Service from the heart', text: 'Hospitality runs through everything we do: you feel welcome and can relax.' },
-      { title: 'Every detail counts', text: 'From the first bite to the last impression, from the flowers to a tidy kitchen.' },
-    ],
+    aude: 'Aude plans everything down to the last detail. In the dining room she is there with a warm smile and a keen eye for what guests need.',
   },
-  cta: {
-    label: 'BEAU MOMENTS',
-    title: 'Let’s create something beautiful together.',
-    text: 'A beautiful moment starts with a good conversation. Don’t hesitate to contact us about your private dinner or event.',
-    button: 'Request a proposal',
+  quote: {
+    title: 'Plan your moment',
+    lead: 'Tell us about your moment: the date, the number of guests and what you have in mind. We’ll get back to you quickly with a tailored proposal.',
+    button: 'Plan your moment',
+    bands: {
+      home: { title: 'Let’s create something beautiful together.', line: 'From a dinner at home to a big celebration, we’d love to think it through with you.' },
+      about: { title: 'Get to know us at the table.', line: 'Tell us what you have in mind and we’ll gladly take care of the rest.' },
+      catering: { title: 'Which moment shall we celebrate together?', line: 'A birthday, a wedding or a company party: every menu is made to measure.' },
+      atelier: { title: 'An evening in our atelier.', line: 'A private space for 8 to 18 guests, with a menu made just for you.' },
+      gallery: { title: 'Fancy a moment like this?', line: 'What you see here, we’d love to create for you too.' },
+      takeaway: { title: 'Rather gather around the table?', line: 'Besides takeaway, we also cook at your home or in our atelier.' },
+    },
   },
   footer: {
     tagline: 'Catering & private dining by Bert & Aude. Passion on the plate, service from the heart.',

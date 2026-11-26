@@ -37,6 +37,11 @@ const f = t(lang).form;
 </form>
 
 <script>
+  // Page « Plan je moment » : ?type=n présélectionne le type d'event (liens depuis les formules et l'atelier).
+  const preset = Number(new URLSearchParams(location.search).get('type'));
+  document.querySelectorAll<HTMLSelectElement>('[data-enquiry] select[name="event-type"]').forEach((sel) => {
+    if (Number.isInteger(preset) && preset >= 0 && preset < sel.options.length && location.search.includes('type=')) sel.selectedIndex = preset;
+  });
   // Envoi sans quitter la page (Netlify Forms accepte un POST encodé sur « / »).
   document.querySelectorAll<HTMLFormElement>('[data-enquiry]').forEach((form) => {
     const status = form.querySelector<HTMLElement>('.form-status')!;

@@ -1,0 +1,16 @@
+---
+// Page « Offerte aanvragen » : le formulaire de demande complet.
+// ?type=n présélectionne le type d'event (0 privé chef … 4 atelier), voir EnquiryForm.
+import Base from '../layouts/Base.astro';
+import Enquiry from '../components/Enquiry.astro';
+import { pagePath, allLangs } from '../i18n/routes';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/locales';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+---
+<Base lang={lang} title={s.meta.quoteTitle} description={s.meta.quoteDesc} alternates={allLangs((l) => pagePath('quote', l))}
+  breadcrumbs={[{ name: s.quote.title, path: pagePath('quote', lang) }]} ogPhoto="table-candles">
+  <Enquiry lang={lang} photo="table-candles" title={s.quote.title} text={s.quote.lead} />
+</Base>

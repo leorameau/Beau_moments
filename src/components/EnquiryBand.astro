@@ -1,0 +1,28 @@
+---
+// Bandeau en bas des pages, vers la page « Plan je moment ».
+// Avec photo : deux moitiés, la photo entière (format d'origine, sans recadrage) et un aplat de couleur avec le texte.
+// Sans photo : texte centré sur l'aplat. Le titre et la ligne changent par page (ui.ts > quote.bands) ;
+// le lien est soit un bouton rectangle (cta 'button'), soit un lien discret souligné (cta 'line').
+import Photo from './Photo.astro';
+import type { PhotoKey } from '../lib/photos';
+import { pagePath } from '../i18n/routes';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/locales';
+export type BandTone = 'terracotta' | 'burgundy' | 'olive';
+export type BandPage = 'home' | 'about' | 'catering' | 'atelier' | 'gallery' | 'takeaway';
+interface Props { lang: Lang; page: BandPage; photo?: PhotoKey; tone: BandTone; side?: 'left' | 'right'; cta?: 'button' | 'line'; preset?: number }
+const { lang, page, photo, tone, side = 'left', cta = 'line', preset } = Astro.props;
+const s = t(lang);
+const text = s.quote.bands[page];
+const href = pagePath('quote', lang) + (preset !== undefined ? `?type=${preset}` : '');
+---
+<section class:list={['band', `band-${tone}`, photo ? `band-photo-${side}` : 'band-plain']} id="aanvraag">
+  <div class="band-in">
+    {photo && <Photo name={photo} lang={lang} class="band-pic" sizes="(min-width: 800px) 50vw, 100vw" />}
+    <div class="band-text">
+      <h2>{text.title}</h2>
+      <p>{text.line}</p>
+      <a class={cta === 'button' ? 'btn band-btn' : 'line-link band-link'} href={href}>{s.quote.button}</a>
+    </div>
+  </div>
+</section>
